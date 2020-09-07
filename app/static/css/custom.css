@@ -1,0 +1,84 @@
+/*------------------------------------
+### Created by k18079-伴 晶樹
+### Created by K18039-後藤 廉 
+--------------------------------------
+### 内容：コンテンツ内共通CSS
+### ファイル：custom.css
+--------------------------------------*/
+
+html, body {
+  height: 100%;
+}
+
+.navbar.navbar-dark a.navbar-brand {
+  color: #000000;
+}
+.navbar.navbar-dark a.navbar-brand:hover {
+  color: #000000;
+}
+.navbar-text-content {
+  color: #4b0082;
+  font-size: 20px;
+  font-weight: 300;
+  font-family: 'Comic Sans MS';
+}
+
+/******************************************************************************
+  signin, signup
+******************************************************************************/
+.signin,
+.signup {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f9d1d8;
+}
+.signin .form-signin,
+.signup .form-signup {
+  width: 100%;
+  max-width: 620px;
+  padding: 3em 3em 1em;
+  background: #e6e6fa;
+  border-radius: 14px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 20px 60px -10px;
+}
+.signin .form-signin .form-control,
+.signup .form-signup .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.signin .form-signin .form-control:focus,
+.signup .form-signup .form-control:focus {
+  z-index: 2;
+}
+.signin .form-signin input,
+.signup .form-signup input {
+  margin-bottom: -1px;
+  border-radius: 0;
+}
+.signin .form-signin .form-control-first,
+.signup .form-signup .form-control-first {
+  border-top-right-radius: .25rem;
+  border-top-left-radius: .25rem;
+}
+.signin .form-signin .form-control-last,
+.signup .form-signup .form-control-last {
+  border-bottom-right-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+}
+
+.table tbody tr[data-href]:hover {
+  cursor: pointer;
+}
+
+h6 {
+  font-size: 20px;
+  margin-top: 8px;
+  font-family: 'Hiragino Kaku Gothic Std';
+}

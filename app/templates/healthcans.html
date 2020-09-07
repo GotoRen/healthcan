@@ -1,0 +1,88 @@
+<!------------------------------------
+### Created by K18039-後藤 廉
+### Created by k18079-伴 晶樹
+### Created by K18114-和田 哲弥
+--------------------------------------
+### 内容：データの一覧表示
+### ファイル：healthcans.html
+-------------------------------------->
+
+{% extends "_signedin_base.html" %}
+{% block title %}HealthCans{% end %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{{ static_url("css/style.css") }}">
+</head>
+
+<div class="healthcans container-fluid">
+    <div class="card">
+        <h5 class="card-header d-flex justify-content-between align-items-center">
+            〜 ヘルスキャン 〜 登録データ一覧
+            <div>
+                <a class="btn btn-primary" href="/healthcan/new" role="button">新規登録</a>
+                <a class="btn btn-primary" href="http://localhost:3000" role="button">ダッシュボードへ</a>
+            </div>
+        </h5>
+        <div class="card-body">
+            {% if len(messages) > 0 %}
+            <div class="alert alert-info" role="alert">
+                {% for message in messages %}
+                <p class="mb-0">{{ escape(message) }}</p>
+                {% end %}
+            </div>
+            {% end %}
+            {% if len(errors) > 0 %}
+            <div class="alert alert-danger" role="alert">
+                {% for err in errors %}
+                <p class="mb-0">{{ escape(err) }}</p>
+                {% end %}
+            </div>
+            {% end %}  
+            {% if user_id is not None%}
+                <div>List of user_ids({{user_id}})</div>
+            {% end %}
+            {% if name is not None%}
+                <div>List of names({{name}})</div>
+            {% end %}
+            <table class="table table-hover">
+                <thead>
+                    <tr><th>#</th><th>日付</th><th>身長</th><th>体重</th><th>BMI</th></tr>
+                </thead>
+                <tbody>
+                    {% for healthcan in healthcans %}
+                    <tr data-href="/healthcan/show/{{ healthcan.attr["id"] }}">
+                        <td>{{ healthcan.attr["id"] }}</td>
+                        <td>{{ str(healthcan.attr["date"]) }}</td>
+                        <td>{{ str(healthcan.attr["height"]) }}</td>
+                        <td>{{ str(healthcan.attr["weight"]) }}</td>
+                        <td>{{ str(healthcan.attr["bmi"]) }}</td>
+                    </tr>
+                    {% end %}
+                </tbody>
+            </table>
+            {% if len(healthcans) == 0 %}
+            <div class="alert alert-info" role="alert">
+                データがありません。<a href="/healthcan/new">新規登録</a>してください。
+            </div>
+            {% end %}
+        </div>
+    </div>
+    <script>
+        // trクリック時の動作設定
+        document.querySelectorAll("tr[data-href]").forEach((elm, i) => {
+            elm.addEventListener("click", (e) => {
+                console.log(e);
+                // クリック可能な要素は、そのクリックイベントを優先する
+                if (e.target.tagName == "A" &&
+                    e.target.tagName == "INPUT" &&
+                    e.target.tagName != "BUTTON") {
+                    return;
+                }
+                // data-href属性に設定したリンクへロケーションを変える
+                window.location = elm.dataset.href;
+            });
+        });
+    </script>
+</div>
+{% end %}
