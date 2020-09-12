@@ -1,5 +1,5 @@
 # oop2_healthcan
-- Dockerコンテナで開発
+- Dockerで開発
   - JupyternoteBook
   - yaml
   - python
