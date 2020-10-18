@@ -4,7 +4,7 @@
   - JupyternoteBook
   - yaml
   - python
-  - tornadoライブラリ
+  - Tornado
   - html
   - js
   - css
