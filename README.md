@@ -9,6 +9,8 @@
   - js
   - css
 - _Docker_
+  - networksに`oop2_link`を指定して共有 
+    - `$ docker network create oop2_link`
   - dockerコンテナのビルドと実行
     - `$ docker-compose up -d --build`
   - 既存のdocker-composeを削除
