@@ -1,9 +1,9 @@
 # oop2_healthcan
 ## Name
 - ~ Healthcan ~
-  - 健康（Health）
-  - Scan（調べる）
-  - Can（管理）
+  - Health：健康
+  - Scan：調べる
+  - Can：管理
 
 ## Overview
 - Python（Tornade） + Docker を利用して健康管理アプリケーションを制作
@@ -18,7 +18,7 @@
 ## Description
 - 環境構築
   ```
-  ###コ ンテナ用のネットワークを作成
+  ### コンテナ用のネットワークを作成
   $ docker network create healthcan_link
 
   ### ビルド & 実行
@@ -39,8 +39,6 @@
   ### サーバ起動
   # python hc_server.py
 
-  ------------------------------------------------------------
-
   b. 2回目以降
   ### サーバ起動
   # python hc_server.py
@@ -58,7 +56,7 @@
 ## Other：Docker Command
 - docker：コンテナ操作
   ```
-  ### ステータ確認
+  ### ステータス確認
   $ docker ps
   
   ### コンテナリスト
