@@ -1,6 +1,8 @@
-###############################
-# Dockerfile for OOP2 lectur  #
-###############################
+#######################################
+# DESCRIPTION: Dockerfile for healthcan
+# Container: JupyterNotebook
+# Owner: RenGoto
+#######################################
 FROM python:3.7.4
 MAINTAINER "Ren Goto" <r0719en@pluslab.org>
 
