@@ -2,7 +2,7 @@
 # Dockerfile for OOP2 lectur  #
 ###############################
 FROM python:3.7.4
-MAINTAINER "Ren Goto" <r0719en@pluslab.org>
+MAINTAINER "Ren Goto" <r0719en@pluslab.org>a
 
 RUN pip3 install \
         numpy \
