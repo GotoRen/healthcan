@@ -1,7 +1,7 @@
 #######################################
 # DESCRIPTION: Dockerfile for healthcan
-# Container: MySQL
-# Owner: RenGoto
+# CONTAINER: MySQL
+# OWNER: RenGoto
 #######################################
 FROM mysql:5.7.27
 MAINTAINER "Ren Goto" <r0719en@pluslab.org>

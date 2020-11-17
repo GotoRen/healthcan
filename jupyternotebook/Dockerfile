@@ -1,7 +1,7 @@
 #######################################
 # DESCRIPTION: Dockerfile for healthcan
-# Container: JupyterNotebook
-# Owner: RenGoto
+# CONTAINER: JupyterNotebook
+# OWNER: RenGoto
 #######################################
 FROM python:3.7.4
 MAINTAINER "Ren Goto" <r0719en@pluslab.org>
