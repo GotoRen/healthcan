@@ -117,7 +117,7 @@
   $ docker network create [ネットワーク名]
   
   ### ネットワークの詳細表示
-  $ docker network inspect  [ネットワークID]    
+  $ docker network inspect [ネットワークID]    
   
   ### ネットワークの一覧表示
   $ docker network ls
