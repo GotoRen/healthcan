@@ -16,7 +16,7 @@ services:
     working_dir: /root/app
     restart: unless-stopped
     networks:
-      - oop2_link
+      - healthcan_link
 
   mysql:
     build:
@@ -27,8 +27,8 @@ services:
       MYSQL_ROOT_PASSWORD: abc123
     restart: unless-stopped
     networks:
-      - oop2_link
+      - healthcan_link
 
 networks:
-  oop2_link:
+  healthcan_link:
     external: true
