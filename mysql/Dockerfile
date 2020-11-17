@@ -1,4 +1,4 @@
 FROM mysql:5.7.27
-LABEL maintainer Takeshi Uchitane <t.uchitane@gmail.com>
+MAINTAINER "Ren Goto" <r0719en@pluslab.org>
 
 COPY charaset.cnf /etc/mysql/conf.d/

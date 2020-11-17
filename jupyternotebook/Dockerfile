@@ -2,7 +2,7 @@
 # Dockerfile for OOP2 lectur  #
 ###############################
 FROM python:3.7.4
-MAINTAINER "Takeshi Uchitane" <takeshi.uchitane@aitech.ac.jp>
+MAINTAINER "Ren Goto" <r0719en@pluslab.org>
 
 RUN pip3 install \
         numpy \
