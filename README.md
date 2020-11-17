@@ -47,14 +47,14 @@
   - Healthcan
     - http://localhost:3000/
   - JupyterNotebook  
-    - http://localhost:8888/tree?
+    - http://localhost:8888/
 
 ## CodeTest
 - `# python -m unittest [フォルダ].[ファイル].[クラス].[テスト関数]`
   - 例：）`# python -m unittest tests.test_hero.test_hero.test_is_valid`
 
 ## Other：Docker Command
-- docker：コンテナ操作
+- docker
   ```
   ### ステータス確認
   $ docker ps
@@ -86,7 +86,7 @@
   ## イメージヒストリ
   $ docker history [イメージ名]
   ```
- - docker-compose：複数コンテナ操作
+ - docker-compose
    ```
    ### 起動
    $ docker-compose start
@@ -108,10 +108,11 @@
     
    ### ステータス確認
    $ docker-compose ps 
+
    ### インスタンスログ
    $ docker-compose logs
    ```
-- docker network：コンテナ間通信
+- docker network
   ```
   ### ネットワークの作成
   $ docker network create [ネットワーク名]
