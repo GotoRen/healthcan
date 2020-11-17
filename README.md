@@ -123,5 +123,5 @@
   $ docker network ls
   
   ### 既存ネットワークの削除
-  docker network rm [ネットワークID]
+  $ docker network rm [ネットワークID]
   ```
