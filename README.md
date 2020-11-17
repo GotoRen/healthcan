@@ -80,10 +80,10 @@
   ### イメージ削除
   $ docker rmi [イメージID]
   
-  ## コンテナログ
+  ### コンテナログ
   $ docker logs [コンテナ名]
 
-  ## イメージヒストリ
+  ### イメージヒストリ
   $ docker history [イメージ名]
   ```
  - docker-compose
