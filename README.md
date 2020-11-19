@@ -26,6 +26,8 @@
 
   ### JupyterNotebook コンテナに入る
   $ docker-compose exec jupyternotebook bash
+  OR
+  $ docker exec -it healthcan_jupyternotebook_1 /bin/bash
   ```
 - 実行
   ```
@@ -100,8 +102,14 @@
    ### コンテナ & イメージ をまとめて削除
    $ docker-compose down
    
+   ### キャッシュを使用しずにビルド（更新したDockerfile, yamlなどを反映させる）
+   $ docker-compose build --no-cache
+
    ### ビルド & 実行
    $ docker-compose up -d --build
+
+   ### コンテナに入る
+   $ docker exec -it [コンテナ名] /bin/bash
    
    ### 詳細表示
    $ docker-compose config
