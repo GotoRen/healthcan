@@ -102,7 +102,7 @@
    ### コンテナ & イメージ をまとめて削除
    $ docker-compose down
    
-   ### キャッシュを使用しずにビルド（更新したDockerfile, yamlなどを反映させる）
+   ### キャッシュを使用しずにビルド（更新したDockerfile, yamlなどを反映させる）
    $ docker-compose build --no-cache
 
    ### ビルド & 実行
