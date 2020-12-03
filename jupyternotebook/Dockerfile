@@ -7,6 +7,7 @@ FROM python:3.7.4
 MAINTAINER "Ren Goto" <r0719en@pluslab.org>
 
 RUN pip3 install \
+        --upgrade pip \
         numpy \
         pandas \
         matplotlib \
