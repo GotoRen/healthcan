@@ -9,8 +9,6 @@ services:
     ports:
       - 0.0.0.0:8888:8888
       - 127.0.0.1:3000:3000
-    links:
-      - mysql:mysql
     volumes:
       - $PWD/app:/root/app
     working_dir: /root/app
