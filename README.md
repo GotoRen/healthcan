@@ -6,7 +6,7 @@
   - Can：管理
 
 ## Overview
-- Python（Tornade） + Docker を利用して健康管理アプリケーションを制作
+- Python（Tornado） + Docker を利用して健康管理アプリケーションを制作
 - 身長, 体重を入力するとBMIや適正体重などを算出してグラフ表示する
   - 体重の変化などが一眼でわかる
 - 基本機能
