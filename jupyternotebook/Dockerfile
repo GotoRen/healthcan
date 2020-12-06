@@ -20,4 +20,4 @@ RUN pip3 install \
 
 EXPOSE 8888
 EXPOSE 3000
-CMD ["/usr/local/bin/jupyter", "notebook", "--port", "8888", "--ip=0.0.0.0", "--allow-root"]
+#CMD ["/usr/local/bin/jupyter", "notebook", "--port", "8888", "--ip=0.0.0.0", "--allow-root"]
