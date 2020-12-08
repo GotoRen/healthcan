@@ -31,19 +31,13 @@
   ```
 - 実行
   ```
-  a. 初期起動時の場合
-  ### 既存のDBを削除
-  # python hc_server.py db_cleaner
-
+  a. ビルド時のみ
   ### データベースへの接続 && カーソルの生成
   # python hc_server.py migrate
 
-  ### サーバ起動
-  # python hc_server.py
-
   b. 2回目以降
-  ### サーバ起動
-  # python hc_server.py
+  ### docker-compose を起動させるだけ
+  $ docker-compose start
   ```
 - アクセス
   - Healthcan
