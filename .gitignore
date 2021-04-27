@@ -1,0 +1,10 @@
+# General
+.DS_Store
+.idea
+
+# Python
+--pycache__
+
+# JupyterNotebook
+.Trash-0/
+.ipynb_checkpoints/
