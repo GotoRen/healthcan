@@ -9,7 +9,6 @@ services:
     command:
       python hc_server.py
     ports:
-      #- 0.0.0.0:8888:8888
       - 127.0.0.1:3000:3000
     volumes:
       - $PWD/app:/root/app
