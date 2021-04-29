@@ -1,10 +1,17 @@
 # General
 .DS_Store
 .idea
+.pdf
 
 # Python
---pycache__
+__pycache__
 
 # JupyterNotebook
-.Trash-0/
 .ipynb_checkpoints/
+.Trash-0/
+
+# Env File
+.env
+
+# Volumes
+db/data

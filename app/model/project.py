@@ -5,8 +5,6 @@
 ### ファイル：project.py
 ####################################
 
-
-
 class project:
     @staticmethod
     def name():

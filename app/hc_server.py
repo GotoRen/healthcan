@@ -1,34 +1,18 @@
-####################################
-### Created by k18039-後藤 廉
-### Created by K18009-今泉 宏紀
-### Created by k18079-伴 晶樹
-####################################
-### 内容：サーバ（メインコントローラ）
-### ファイル：hc_server.py
-####################################
-
-# トルネードライブラリ
 import tornado.ioloop
 import tornado.web
 from tornado.web import MissingArgumentError
-# os, sys
 import os
 import sys
-# 親クラス(user.py, healthcan.py)の読み込み
-from model.user import user
-from model.healthcan import healthcan
-# DB接続関連
-from db import DBConnector
-# 現在日時の取得
 import datetime
-# 算術演算ライブラリ
 import decimal
 from decimal import Decimal
-# 認証関係コントローラ, ヘルスキャンコントローラの読み込み
+
+### External Class
+from model.user import user
+from model.healthcan import healthcan
+from db import DBConnector
 from controller.AuthenticationHandlers import SigninBaseHandler, SigninHandler, SignupHandler, SignoutHandler
 from controller.HealthCanHandlers import HealthcansHandler, HealthcanShowHandler, HealthcanCreateHandler
-
-
 
 class MainHandler(SigninBaseHandler):
 
@@ -36,16 +20,12 @@ class MainHandler(SigninBaseHandler):
         if not self.current_user:
             self.redirect("/signin")
             return
-        # サインインユーザーの取得
+
         _id = tornado.escape.xhtml_escape(self.current_user)
         _signedInUser = user.find(int(_id))
-        
-        # ダッシュボードを表示
-        # 追加
         _weight = healthcan.weight(_id)
         _bmi = healthcan.bmi(_id)
         self.render("dashboard.html", user=_signedInUser, weight=_weight, bmi=_bmi)
-        
 
 
 application = tornado.web.Application([
