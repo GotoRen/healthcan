@@ -1,17 +1,7 @@
-####################################
-### Created by K18039-後藤 廉
-####################################
-### 内容：日付・時間の実装の確認用
-### ファイル：datetime_test.py
-####################################
-
-# 現在日時の取得
 from datetime import datetime
 import datetime
 
-
-#########################################################
-# 日付
+# Date
 print('=====================')
 now = datetime.datetime.now()
 print(type(now))
@@ -22,8 +12,8 @@ day=daytmp.date()
 print(type(day))
 print(day)
 print('=====================')
-#########################################################
-# 時間
+
+# Time
 now2 = datetime.datetime.now()
 print(type(now2))
 print(now2)
@@ -42,4 +32,3 @@ time = timetmp.time()
 print(type(time))
 print(time)
 print('=====================')
-#########################################################

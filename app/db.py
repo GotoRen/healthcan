@@ -1,7 +1,7 @@
 import MySQLdb
 
+# Providing information related to database connections.
 class DBConnector(object):
-
     def __init__(self, dbName=None):
         self.account = {
             'host': 'mysql',

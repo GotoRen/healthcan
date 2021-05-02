@@ -6,8 +6,6 @@ import sys
 import datetime
 import decimal
 from decimal import Decimal
-
-### External Class
 from model.user import user
 from model.healthcan import healthcan
 from db import DBConnector
@@ -15,7 +13,6 @@ from controller.AuthenticationHandlers import SigninBaseHandler, SigninHandler, 
 from controller.HealthCanHandlers import HealthcansHandler, HealthcanShowHandler, HealthcanCreateHandler
 
 class MainHandler(SigninBaseHandler):
-
     def get(self):
         if not self.current_user:
             self.redirect("/signin")
