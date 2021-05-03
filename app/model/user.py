@@ -1,46 +1,23 @@
-####################################
-### Created by K18039-後藤 廉
-####################################
-### 内容：ユーザモデル
-### ファイル：user.py
-####################################
-
-# MySQL
 import MySQLdb
-# 現在日時の取得
 import datetime
-# DB接続関連
 from db import DBConnector
-# プロジェクトの読み込み
 from model.project import project
 
-
-
 class user:
-    
-
-    # ユーザーモデル
     def __init__(self):
         self.attr = {}
-        self.attr["id"] = None              # id int notNull
-        self.attr["email"] = None           # email str notNull
-        self.attr["name"] = None            # name str
-        self.attr["password"] = None        # password str notNull
-        self.attr["last_updated"] = None    # last_updated date notNull
-
+        self.attr["id"] = None              
+        self.attr["email"] = None           
+        self.attr["name"] = None            
+        self.attr["password"] = None        
+        self.attr["last_updated"] = None
 
     @staticmethod
     def migrate():
-
-        # データベースへの接続とカーソルの生成
         with DBConnector(dbName=None) as con, con.cursor() as cursor:
-            # データベース生成
             cursor.execute('CREATE DATABASE IF NOT EXISTS db_%s;' % project.name())
-            # 生成したデータベースに移動
             cursor.execute('USE db_%s;' % project.name())
-            # テーブル初期化(DROP)
             cursor.execute('DROP TABLE IF EXISTS table_user;')
-            # テーブル初期化(CREATE)
             cursor.execute("""
                 CREATE TABLE `table_user` (
                     `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -54,14 +31,14 @@ class user:
                 ); """)
             con.commit()
 
-
+    # db_creaner clears the database.
     @staticmethod
     def db_cleaner():
         with DBConnector(dbName=None) as con, con.cursor() as cursor:
             cursor.execute('DROP DATABASE IF EXISTS db_%s;' % project.name())
             con.commit()
 
-
+    # find returns matching elements (returns data by id).
     @staticmethod
     def find(id):
         with DBConnector(dbName='db_%s' % project.name()) as con, \
@@ -84,7 +61,7 @@ class user:
         u.attr["last_updated"] = data["last_updated"]
         return u
 
-
+    # find_by_email returns matching elements (returns data by email).
     @staticmethod
     def find_by_email(email):
         with DBConnector(dbName='db_%s' % project.name()) as con, \
@@ -107,7 +84,7 @@ class user:
         u.attr["last_updated"] = data["last_updated"]
         return u
     
-
+    # is_valid determines the correctness of the value.
     def is_valid(self):
         return all([
           self.attr["id"] is None or type(self.attr["id"]) is int,
@@ -117,7 +94,7 @@ class user:
           self.attr["last_updated"] is not None and type(self.attr["last_updated"]) is datetime.datetime
         ])
 
-
+    # build builds each data.
     @staticmethod
     def build():
         now = datetime.datetime.now()
@@ -125,23 +102,21 @@ class user:
         u.attr["last_updated"] = now
         return u
 
-
+    # save runs _db_save.
     def save(self):
         if(self.is_valid):
             return self._db_save()
         return False
 
-
+    # _db_save runs _db_save_insert.
     def _db_save(self):
         if self.attr["id"] == None:
             return self._db_save_insert()
         return self._db_save_update()
 
-
+    # _db_save_insert inserts saved data.
     def _db_save_insert(self):
-
         with DBConnector(dbName='db_%s' % project.name()) as con, con.cursor() as cursor:
-
             # データの保存(INSERT)
             cursor.execute("""
                 INSERT INTO table_user
@@ -153,6 +128,7 @@ class user:
                 self.attr["password"],
                 '{0:%Y-%m-%d %H:%M:%S}'.format(self.attr["last_updated"])))
 
+            # INSERTされたAUTO INCREMENT値を取得
             cursor.execute("SELECT last_insert_id();")
             results = cursor.fetchone()
             self.attr["id"] = results[0]
@@ -161,11 +137,9 @@ class user:
 
         return self.attr["id"]
     
-    
+    # _db_save_update updates the data.
     def _db_save_update(self):
-
         with DBConnector(dbName='db_%s' % project.name()) as con, con.cursor() as cursor:
-
             # データの保存(UPDATE)
             cursor.execute("""
                 UPDATE table_user

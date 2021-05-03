@@ -1,32 +1,13 @@
-####################################
-### Created by K18039-後藤 廉
-### Created by K18009-今泉 宏紀
-####################################
-### 内容：ヘルスキャンモデル
-### ファイル：healthcan.py
-####################################
-
-# MySQL
 import MySQLdb
-# 現在日時の取得
 import datetime
 import pytz
-# 算術演算ライブラリ
 import decimal
 from _pydecimal import Decimal
 from decimal import Decimal
-# DB接続関連
 from db import DBConnector
-# プロジェクトの読み込み
-# from model.project_healthcan import project
 from model.project import project
 
-
-
 class healthcan:
-
-
-    # 処理：要素の取得
     def __init__(self):
         self.attr = {}
         self.attr["id"] = None          # ID
@@ -40,19 +21,12 @@ class healthcan:
         self.attr["pro_weight"] = None  # 適正体重
         self.attr["diff_weight"] = None # 適正体重までの差（体重-適正体重）
 
-
     @staticmethod
     def migrate():
-
-        # データベースへの接続とカーソルの生成
         with DBConnector(dbName=None) as con, con.cursor() as cursor:
-            # データベース生成
             cursor.execute('CREATE DATABASE IF NOT EXISTS db_%s;' % project.name())
-            # 生成したデータベースに移動
             cursor.execute('USE db_%s;' % project.name())
-            # テーブル初期化(DROP)
             cursor.execute('DROP TABLE IF EXISTS HEALTH;')
-            # テーブル初期化(CREATE)
             cursor.execute("""
                 CREATE TABLE `HEALTH` (
                 `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -71,18 +45,14 @@ class healthcan:
             )""")
             con.commit()
 
-
-    # 関数：db_cleaner
-    # 処理：消去処理
+    # db_creaner clears the database.
     @staticmethod
     def db_cleaner():
         with DBConnector(dbName=None) as con, con.cursor() as cursor:
             cursor.execute('DROP DATABASE IF EXISTS db_%s;' % project.name())
             con.commit()
 
-
-    # 関数：find
-    # 処理：一致した要素を返す（idを持つデータを返す）
+    # find returns matching elements (returns data by id).
     @staticmethod
     def find(id):
         with DBConnector(dbName='db_%s' % project.name()) as con, \
@@ -110,9 +80,7 @@ class healthcan:
         hc.attr["diff_weight"] = data["diff_weight"]
         return hc
 
-
-    # 関数：is_valid
-    # 処理：値の正誤判定をする
+    # is_valid determines the correctness of the value.
     def is_valid(self):
         return all([
             self.attr["id"] is None or type(self.attr["id"]) is int,
@@ -127,16 +95,13 @@ class healthcan:
             self.attr["diff_weight"] is not None and type(self.attr["diff_weight"]) is decimal.Decimal,
         ])      
 
-
-    # 関数：build
-    # 処理：データ確立
+    # build builds each data.
     @staticmethod
     def build():
         hc = healthcan()
         now = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
         hc.attr["date"] = '{0:%Y-%m-%d}'.format(now.date())
         hc.attr["time"] = '{0:%H:%M:%S}'.format(now.time())
-        # hc.attr["time"] = now.time()
         hc.attr["height"] = Decimal(0)
         hc.attr["weight"] = Decimal(0)
         hc.attr["bmi"] = Decimal(0)
@@ -144,25 +109,19 @@ class healthcan:
         hc.attr["diff_weight"] = Decimal(0)
         return hc
 
-
-    # 関数：save
-    # 処理：保存予定データの確認
+    # save runs _db_save.
     def save(self):
         if(self.is_valid):
             return self._db_save()
         return False
 
-
-    # 関数：_db_save
-    # 処理：データ保存
+    # _db_save runs _db_save_insert.
     def _db_save(self):
         if self.attr["id"] == None:
             return self._db_save_insert()
         return self._db_save_update()
 
-
-    # 関数：_db_save_insert
-    # 処理：保存データを挿入
+    # _db_save_insert inserts saved data.
     def _db_save_insert(self):
         with DBConnector(dbName='db_%s' % project.name()) as con, con.cursor() as cursor:
             # データの保存(INSERT)
@@ -191,9 +150,7 @@ class healthcan:
 
         return self.attr["id"]
 
-
-    # 関数：_db_save_update
-    # 処理：データの更新処理
+    # _db_save_update updates the data.
     def _db_save_update(self):
         with DBConnector(dbName='db_%s' % project.name()) as con, con.cursor() as cursor:
             # データの保存(UPDATE)
@@ -223,9 +180,7 @@ class healthcan:
         
         return self.attr["id"]
     
-
-    # 関数：select_by_user_id
-    # 処理：ユーザ取得
+    # select_by_user_id gets the user.
     @staticmethod
     def select_by_user_id(user_id):
         with DBConnector(dbName='db_%s' % project.name()) as con, \
@@ -254,9 +209,7 @@ class healthcan:
         
         return records
        
-       
-    # 関数：delete
-    # 処理：データの削除   
+    # delete deletes the data.
     def delete(self):
         if self.attr["id"] == None: return None
         with DBConnector(dbName='db_%s' % project.name()) as con, con.cursor() as cursor:
@@ -269,9 +222,7 @@ class healthcan:
 
         return self.attr["id"]
 
-
-    # メソッド：private methods
-    # 処理：dataのindexリストを返す
+    # _index returns an index list of data.
     @staticmethod
     def _index(user_id):
         with DBConnector(dbName='db_%s' % project.name()) as con, con.cursor() as cursor:
@@ -286,9 +237,7 @@ class healthcan:
         ids = [recode[0] for recode in recodes]
         return ids
 
-
-
-    # 追加（今泉）
+    # weight gets weight data.
     @staticmethod
     def weight(user_id):
         with DBConnector(dbName='db_%s' % project.name()) as con, con.cursor(MySQLdb.cursors.DictCursor) as cursor:
@@ -301,6 +250,7 @@ class healthcan:
             recodes = cursor.fetchall()
             return recodes
 
+    # bmi gets bmi data.
     @staticmethod
     def bmi(user_id):
         with DBConnector(dbName='db_%s' % project.name()) as con, con.cursor(MySQLdb.cursors.DictCursor) as cursor:

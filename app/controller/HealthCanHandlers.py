@@ -64,7 +64,7 @@ class HealthcanShowHandler(SigninBaseHandler):
         self.render("healthcan_form.html", user=_signedInUser, mode="show", healthcan=hc, messages=[], errors=[])
 
 
-### New registration of data.
+# New registration of data.
 class HealthcanCreateHandler(SigninBaseHandler):
     def get(self):
         if not self.current_user:

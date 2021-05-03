@@ -33,17 +33,17 @@ class test_healthcan(unittest.TestCase):
     def tearDown(self):
         healthcan.db_cleaner
 
-    # mock: 01
+    # mock01: Returns matching elements.
     def test_db_is_working(self):
         hc = healthcan.find(self.hc.attr["id"])
         self.assertTrue(type(hc) is healthcan)
         self.assertTrue(hc.attr["id"] == 1)
 
-    # mock02: attr has the correct value.
+    # mock02: Attr has the correct value.
     def test_is_valid(self):
         self.assertTrue(self.hc.is_valid())
 
-    # mock03: testing a function to check if attr has the wrong value.
+    # mock03: Testing a function to check if attr has the wrong value.
     def test_is_valid_with_invalid_attrs(self):
         
         # id must be None or a int
@@ -156,12 +156,12 @@ class test_healthcan(unittest.TestCase):
         hc_wrong.attr["diff_weight"] = 1
         self.assertFalse(hc_wrong.is_valid())
 
-    # mock04: create a healthcan instance with a default value. (also used to create an input form with Controller.) 
+    # mock04: Create a healthcan instance with a default value. (also used to create an input form with Controller.) 
     def test_build(self):
         hc = healthcan.build()
         self.assertTrue(type(hc) is healthcan)
 
-    # mock: 05
+    # mock05: Returns an index list of data.
     def test__index(self):
         self.assertEqual(len(healthcan._index(2)), 1)
         self.assertEqual(healthcan._index(2)[0], 1)
