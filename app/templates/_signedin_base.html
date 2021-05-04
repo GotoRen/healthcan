@@ -1,42 +1,32 @@
-<!------------------------------------
-### Created by K18039-後藤 廉
-### Created by k18079-伴 晶樹
---------------------------------------
-### 内容：サインインベース（画面の骨組み）
-### ファイル：_signedin_base.html
--------------------------------------->
-
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>{% block title %}{% end %} - HealthCan</title>
-
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ static_url("css/custom.css") }}"><!-- Custom CSS -->
-
-        <script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        {% block add_scripts %}
-        {% end %}
-    </head>
-    <body></body>
-        <nav class="navbar navbar-light mb-4" style="background-color: #f8f8ff;">
-          <!-- edited by ban バーの背景色を黒から白 -->
-            <a class="navbar-brand">
-              <img src="{{ static_url("img/healthcan-icon.jpg") }}" width="60" height="50" class="d-inline-block align-top" alt="logo" style="border: 3px dashed Magenta;">
-              <!-- edited by ban 画像のURLを変更 -->
-                <font face='Comic Sans MS' size="6"color=#adff2f>~ HealthCan ~</font>
-                    <h6><font color=#87cefa>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;~ 今日のあなたは？？ ~</font></h6>
-            </a>
-            <div class="navbar-text-content">
-                ログイン中： <span class="username">{{ user.attr["name"] }}</span>( <span class="email">{{ user.attr["email"] }}</span> )
-                <a class="btn btn-outline-dark" href="/signout">ログアウト</a>
-            </div>
-        </nav>
-        {% block content %}
-        {% end %}
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% end %} - HealthCan</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ static_url("css/custom.css") }}">
+    <script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    {% block add_scripts %}
+    {% end %}
+</head>
+<body>
+    <nav class="navbar navbar-light mb-4" style="background-color: #f8f8ff;">
+        <!-- edited by ban バーの背景色を黒から白 -->
+        <a class="navbar-brand">
+            <img src="{{ static_url("img/healthcan-icon.jpg") }}" width="60" height="50" class="d-inline-block align-top" alt="logo" style="border: 3px dashed Magenta;">
+            <!-- edited by ban 画像のURLを変更 -->
+            <font face='Comic Sans MS' size="6"color=#adff2f>~ HealthCan ~</font>
+            <h6><font color=#87cefa>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;~ 今日のあなたは？？ ~</font></h6>
+        </a>
+        <div class="navbar-text-content">
+            ログイン中： <span class="username">{{ user.attr["name"] }}</span>( <span class="email">{{ user.attr["email"] }}</span> )
+            <a class="btn btn-outline-dark" href="/signout">ログアウト</a>
+        </div>
+    </nav>
+    {% block content %}
+    {% end %}
+</body>
 </html>

@@ -1,53 +1,39 @@
-<!------------------------------------
-### Created by K18039-後藤 廉
-### Created by k18079-伴 晶樹
-### Created by K17138-山下 大智
---------------------------------------
-### 内容：ログイン画面
-### ファイル：signin.html
--------------------------------------->
-
 {% extends "_base.html" %}
 {% block title %}ログイン{% end %}
 {% block content %}
 <head>
-<link rel="stylesheet" href="{{ static_url("css/style.css") }}">
+    <link rel="stylesheet" href="{{ static_url("css/style.css") }}">
 </head>
 <div class="signin">
     <form class="form-signin" action="/signin" method="POST">
         <header>
-          <div class="mb-4 text-center">
-            <img class="" src="{{ static_url("img/healthcan-icon.jpg") }}" alt="" width="150" height="144">
-            
-          </div>
-            <!--<h1 class="h2 text-center font-weight-normal">ヘルスキャン</h1>-->
+            <div class="mb-4 text-center">
+                <img class="" src="{{ static_url("img/healthcan-icon.jpg") }}" alt="" width="150" height="144">
+            </div>
             <center><img class="" src="{{ static_url("img/title.jpg") }}" alt="" width="350" height="130"></center>
-            
         </header>
-            <h3>健康管理アプリケーション&emsp;&emsp;&emsp;</h3>
-        <!-- edited by ban 画像とタイトル -->
+        <h3>健康管理アプリケーション&emsp;&emsp;&emsp;</h3>
         <main>
-          {% if len(messages) > 0 %}
-          <div class="alert alert-info" role="alert">
-              {% for message in messages %}
-              <p class="mb-0">{{ escape(message) }}</p>
-              {% end %}
-          </div>
-          {% end %}
-          {% if len(errors) > 0 %}
-          <div class="alert alert-danger" role="alert">
-              {% for err in errors %}
-              <p class="mb-0">{{ escape(err) }}</p>
-              {% end %}
-          </div>
+            {% if len(messages) > 0 %}
+                <div class="alert alert-info" role="alert">
+                    {% for message in messages %}
+                        <p class="mb-0">{{ escape(message) }}</p>
+                    {% end %}
+                </div>
             {% end %}
-                  <label for="inputEmail" class="sr-only">Sign in ID (Email address)</label>
-                  <input type="email" id="inputEmail" name="form-email" class="form-control form-control-first" placeholder="ユーザID" required autofocus>
-                  <label for="inputPassword" class="sr-only">Sign in Password</label>
-                  <input type="password" id="inputPassword" name="form-password" class="form-control form-control-last" placeholder="パスワード" required>
-                  <button class="btn btn-lg btn-primary btn-block mt-2" type="submit">サインイン</button>
-                  <p class="mb-3 text-right">アカウントをお持ちではありませんか？ <a href="/signup">作成する</a>.</p>
-                  <!-- edited by ban divタグを外した、日本語に変更 -->
+            {% if len(errors) > 0 %}
+                <div class="alert alert-danger" role="alert">
+                    {% for err in errors %}
+                        <p class="mb-0">{{ escape(err) }}</p>
+                    {% end %}
+                </div>
+            {% end %}
+            <label for="inputEmail" class="sr-only">Sign in ID (Email address)</label>
+            <input type="email" id="inputEmail" name="form-email" class="form-control form-control-first" placeholder="ユーザID" required autofocus>
+            <label for="inputPassword" class="sr-only">Sign in Password</label>
+            <input type="password" id="inputPassword" name="form-password" class="form-control form-control-last" placeholder="パスワード" required>
+            <button class="btn btn-lg btn-primary btn-block mt-2" type="submit">サインイン</button>
+            <p class="mb-3 text-right">アカウントをお持ちではありませんか？ <a href="/signup">作成する</a>.</p>
         </main>
     </form>
 </div>
