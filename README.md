@@ -16,37 +16,33 @@
 | docker-compose | 1.29.0 |
 | MySQL	| 8.0.24 |
 | Python | 3.9.0 |
-| pip | 21.0.1 |
+| pip3 | 21.1.1 |
 
 ## 🚀 Usage
 ```
-### コンテナ用のネットワークを作成
-$ docker network create healthcan_link
+### 起動
+$ make
 
-### ビルド & 実行
-$ docker-compose up -d --build
+### appコンテナに入る
+$ make app/healthcan
 
-### JupyterNotebook コンテナに入る
-$ docker-compose exec jupyternotebook bash
+### dbコンテナに入る
+$ make app/db
 
-a. ビルド時のみ
-### データベースへの接続 && カーソルの生成
-# python3 hc_server.py migrate
+### dbコンテナに入る + MySQL接続
+$ make mysql
 
-b. 2回目以降
-### docker-compose を起動させるだけ
-$ docker-compose start
+### 単体テスト
+$ make app/healthcan
+# make
 ```
 
 ## 🌱 Access
-- indexページ：[http://localhost:3000/](http://localhost:3000/)
+- Index：[http://localhost:3000/](http://localhost:3000/)
 - JupyterNotebook：[http://localhost:8888/](http://localhost:8888/)
 
 ## 📝 UnitTests
 ```
-$ make app/healthcan
-# make 
-
 # python3 -m unittest [フォルダ].[ファイル].[クラス].[テスト関数]
 
 ex:) model/project.py
@@ -70,18 +66,3 @@ All. python3 -m unittest tests.test_user.test_user
 6.   python3 -m unittest tests.test_user.test_user.test_db_save_insert
 7.   python3 -m unittest tests.test_user.test_user.test_db_save_update
 ```
-
-## 💪 pip3
-```
-### pip3 リスト
-$ pip3 list
-
-### インストール済みのパッケージのうち、最新でないものを表示する
-$ pip3 list --outdated
-
-### インストール済みパッケージのうち、最新でないものをアップデートする
-$ pip3 list --outdated | awk 'NR>2 {print $1}' | xargs pip install -U
-```
-
-
-
