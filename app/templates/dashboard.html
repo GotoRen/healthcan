@@ -1,181 +1,168 @@
-<!------------------------------------
-### Created by K18039-後藤 廉 
-### Created by K18009-今泉 宏紀
-### Created by k18079-伴 晶樹
---------------------------------------
-### 内容：ダッシュボード
-### ファイル：dashboard.html
--------------------------------------->
-
 {% extends "_signedin_base.html" %}
 {% block title %}Dashboard{% end %}
 {% block content %}
-
 <head>
-  <link rel="stylesheet" href="{{ static_url("css/style.css") }}">
-
-  <script src="{{ static_url("js/healthcan_form.js") }}"></script>
-
+    <link rel="stylesheet" href="{{ static_url("css/style.css") }}">
+    <script src="{{ static_url("js/healthcan_form.js") }}"></script>
 </head>
-
 <div id="main">
-<div class="dashboard container-fluid">
-  <div class="row">
-    <div class="col-sm">
-      <div class="card">
-        <h5 class="card-header">ダッシュボード</h5>
-          <div class="card-body">
-            <ul>
-                <li><a href="/healthcans">ヘルスキャン 一覧</a></li>
-                <li><a href="/healthcan/new">ヘルスキャン 新規登録</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="card-body col-sm-6">
-              <canvas id="weightReport"></canvas>
-                  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-          </div>
-          
-          <!-- 追加 -->
-          <script>
-            /* 一昨日のデータ */
-            var today = new Date();
-            today.setDate(today.getDate() - 2);
-            var a_year = today.getFullYear();
-            var a_month = ("00" + (today.getMonth()+1)).slice(-2);
-            var a_date= ("00" + today.getDate()).slice(-2);
-            var result_twodaysage = a_year + "/" + a_month + "/" + a_date;
-            console.log(result_twodaysage);
+    <div class="dashboard container-fluid">
+        <div class="row">
+            <div class="col-sm">
+                <div class="card">
+                    <h5 class="card-header">ダッシュボード</h5>
+                    <div class="card-body">
+                        <ul>
+                            <li><a href="/healthcans">ヘルスキャン 一覧</a></li>
+                            <li><a href="/healthcan/new">ヘルスキャン 新規登録</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="card-body col-sm-6">
+                        <canvas id="weightReport"></canvas>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+                    </div>
+                    <!-- 追加 -->
+                    <script>
+                        /* 一昨日のデータ */
+                        var today = new Date();
+                        today.setDate(today.getDate() - 2);
+                        var a_year = today.getFullYear();
+                        var a_month = ("00" + (today.getMonth()+1)).slice(-2);
+                        var a_date= ("00" + today.getDate()).slice(-2);
+                        var result_twodaysage = a_year + "/" + a_month + "/" + a_date;
+                        console.log(result_twodaysage);
 
-            /* 昨日のデータ */
-            var today = new Date();
-            today.setDate(today.getDate() - 1);
-            var b_year = today.getFullYear();
-            var b_month = ("00" + (today.getMonth()+1)).slice(-2);
-            var b_date = ("00" + today.getDate()).slice(-2);
-            var result_yesterday = b_year + "/" + b_month + "/" + b_date;
-            console.log(result_yesterday);
+                        /* 昨日のデータ */
+                        var today = new Date();
+                        today.setDate(today.getDate() - 1);
+                        var b_year = today.getFullYear();
+                        var b_month = ("00" + (today.getMonth()+1)).slice(-2);
+                        var b_date = ("00" + today.getDate()).slice(-2);
+                        var result_yesterday = b_year + "/" + b_month + "/" + b_date;
+                        console.log(result_yesterday);
 
-            /* 今日 */
-            var today = new Date();
-            var c_year = today.getFullYear();
-            var c_month = ("00" + (today.getMonth()+1)).slice(-2);
-            var c_date= ("00" + today.getDate()).slice(-2);
-            var result_today = c_year + "/" + c_month + "/" + c_date;
-            console.log(result_today);
+                        /* 今日 */
+                        var today = new Date();
+                        var c_year = today.getFullYear();
+                        var c_month = ("00" + (today.getMonth()+1)).slice(-2);
+                        var c_date= ("00" + today.getDate()).slice(-2);
+                        var result_today = c_year + "/" + c_month + "/" + c_date;
+                        console.log(result_today);
      
-            var wdata = [];
-            {% for wei in weight %}
-                wdata.push({{ wei["weight"] }});
-            {% end %}
-            console.log(wdata);
-            var ctx = document.getElementById("weightReport");
-                  var chart = new Chart(ctx, { //体重のグラフ
-                      type: 'line',
-                      data: {
-                          labels: [result_today, result_today, result_today, result_today], //日付
-                          datasets: [{
-                              label: '体重',
-                              data: wdata, //体重のデータ
-                              lineTension: 0,
-                              borderColor: "rgba(255,0,0,1)",
-                              backgroundColor: "rgba(0,0,0,0)"
-                          }]
-                      },
-                      options: {
-                          tooltips: {
-                              mode: 'nearest',
-                              intersect: false,
-                          },                               
-                          scales: {
-                              yAxes: [{
-                                  ticks: {
-                                      suggestedMax: 70,
-                                      suggestedMin: 60,
-                                      stepSize: 0.5,
-                                      callback: function(value, index, values){
-                                          return value + 'kg'
-                                      }
-                                  }
-                              }]
-                      },
-                  }
-              });                  
-          </script>
-  
-          <div class="card-body col-sm-6">
-              <canvas id="bmiReport"></canvas>
-                  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
-          </div>
-          <script>
-            /* 一昨日のデータ */
-            var today = new Date();
-            today.setDate(today.getDate() - 2);
-            var a_year = today.getFullYear();
-            var a_month = ("00" + (today.getMonth()+1)).slice(-2);
-            var a_date= ("00" + today.getDate()).slice(-2);
-            var result_twodaysage = a_year + "/" + a_month + "/" + a_date;
-            console.log(result_twodaysage);
+                        var wdata = [];
+                        {% for wei in weight %}
+                            wdata.push({{ wei["weight"] }});
+                        {% end %}
+                        console.log(wdata);
+                        var ctx = document.getElementById("weightReport");
+                        //体重グラフ
+                        var chart = new Chart(ctx, { 
+                            type: 'line',
+                            data: {
+                                labels: [result_today, result_today, result_today, result_today], //日付
+                                datasets: [{
+                                    label: '体重',
+                                    data: wdata, //体重データ
+                                    lineTension: 0,
+                                    borderColor: "rgba(255,0,0,1)",
+                                    backgroundColor: "rgba(0,0,0,0)"
+                                }]
+                            },
+                            options: {
+                                tooltips: {
+                                    mode: 'nearest',
+                                    intersect: false,
+                                },                               
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            suggestedMax: 70,
+                                            suggestedMin: 60,
+                                            stepSize: 0.5,
+                                            callback: function(value, index, values){
+                                                return value + 'kg'
+                                            }
+                                        }
+                                    }]
+                                },
+                            }
+                        });                  
+                    </script>
 
-            /* 昨日のデータ */
-            var today = new Date();
-            today.setDate(today.getDate() - 1);
-            var b_year = today.getFullYear();
-            var b_month = ("00" + (today.getMonth()+1)).slice(-2);
-            var b_date = ("00" + today.getDate()).slice(-2);
-            var result_yesterday = b_year + "/" + b_month + "/" + b_date;
-            console.log(result_yesterday);
+                    <div class="card-body col-sm-6">
+                        <canvas id="bmiReport"></canvas>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+                    </div>
 
-            /* 今日 */
-            var today = new Date();
-            var c_year = today.getFullYear();
-            var c_month = ("00" + (today.getMonth()+1)).slice(-2);
-            var c_date= ("00" + today.getDate()).slice(-2);
-            var result_today = c_year + "/" + c_month + "/" + c_date;
-            console.log(result_today);
+                    <script>
+                        /* 一昨日のデータ */
+                        var today = new Date();
+                        today.setDate(today.getDate() - 2);
+                        var a_year = today.getFullYear();
+                        var a_month = ("00" + (today.getMonth()+1)).slice(-2);
+                        var a_date= ("00" + today.getDate()).slice(-2);
+                        var result_twodaysage = a_year + "/" + a_month + "/" + a_date;
+                        console.log(result_twodaysage);
 
-            var BMI_data = [];
-            {% for b in bmi %}
-                BMI_data.push({{ b["bmi"] }});
-            {% end %}
-            // console.log(BMI_data);
-              var ctx2 = document.getElementById("bmiReport");
-                  var chart = new Chart(ctx2, { //BMIのグラフ
-                      type: 'line',
-                      data: {
-                        labels: [result_today, result_today, result_today, result_today], //日付
-                        datasets: [{
-                              label: 'BMI',
-                              data: BMI_data, //BMIのデータ
-                              lineTension: 0,
-                              borderColor: "rgba(0,0,255,1)",
-                              backgroundColor: "rgba(0,0,0,0)"
-                          }]
-                      },
-                      options: {
-                          tooltips: {
-                              mode: 'nearest',
-                              intersect: false,
-                          },   
-                          scales: {
-                              yAxes: [{
-                                  ticks: {
-                                      suggestedMax: 30,
-                                      suggestedMin: 25,
-                                      stepSize: 0.5,
-                                  }
-                              }]
-                      },
-                  }
-              });              
-          </script>
-        <!-- ここまで -->
+                        /* 昨日のデータ */
+                        var today = new Date();
+                        today.setDate(today.getDate() - 1);
+                        var b_year = today.getFullYear();
+                        var b_month = ("00" + (today.getMonth()+1)).slice(-2);
+                        var b_date = ("00" + today.getDate()).slice(-2);
+                        var result_yesterday = b_year + "/" + b_month + "/" + b_date;
+                        console.log(result_yesterday);
 
-      </div>
+                        /* 今日 */
+                        var today = new Date();
+                        var c_year = today.getFullYear();
+                        var c_month = ("00" + (today.getMonth()+1)).slice(-2);
+                        var c_date= ("00" + today.getDate()).slice(-2);
+                        var result_today = c_year + "/" + c_month + "/" + c_date;
+                        console.log(result_today);
+
+                        var BMI_data = [];
+                        {% for b in bmi %}
+                            BMI_data.push({{ b["bmi"] }});
+                        {% end %}
+                        // console.log(BMI_data);
+                        var ctx2 = document.getElementById("bmiReport");
+                        //BMIグラフ
+                        var chart = new Chart(ctx2, { 
+                            type: 'line',
+                            data: {
+                                labels: [result_today, result_today, result_today, result_today], //日付
+                                datasets: [{
+                                    label: 'BMI',
+                                    data: BMI_data, //BMIデータ
+                                    lineTension: 0,
+                                    borderColor: "rgba(0,0,255,1)",
+                                    backgroundColor: "rgba(0,0,0,0)"
+                                }]
+                            },
+                            options: {
+                                tooltips: {
+                                    mode: 'nearest',
+                                    intersect: false,
+                                },   
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            suggestedMax: 30,
+                                            suggestedMin: 25,
+                                            stepSize: 0.5,
+                                        }
+                                    }]
+                                },
+                            }
+                         });              
+                    </script>
+                    <!-- ここまで -->
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-</div>
 {% end %}
-
-

@@ -1,10 +1,3 @@
-/*------------------------------------
-### Created by K18039-後藤 廉 
---------------------------------------
-### 内容：データの計算 
-### ファイル：healthcan_form.js
---------------------------------------*/
-
 function resolve_calculation() {
     let height = document.getElementById("form-height").value;
     let weight = document.getElementById("form-weight").value;

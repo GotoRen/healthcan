@@ -1,163 +1,152 @@
-<!------------------------------------
-### Created by K18009-今泉 宏紀
-### Created by K18039-後藤 廉 
-### Created by k18079-伴 晶樹
---------------------------------------
-### 内容：データ登録及び詳細画面の表示
-### ファイル：healthcan_form.html
--------------------------------------->
-
 {% extends "_signedin_base.html" %}
 {% block title %}Healthcan({{ mode }}){% end %}
 {% block content %}
-
 <head>
-<script src="{{ static_url("js/healthcan_form.js") }}"></script>
-<link rel="stylesheet" href="{{ static_url("css/style.css") }}">
+    <script src="{{ static_url("js/healthcan_form.js") }}"></script>
+    <link rel="stylesheet" href="{{ static_url("css/style.css") }}">
 </head>
-
 <div class="healthcan healthcan-form">
     <main role="main" class="container">
         {% if len(messages) > 0 %}
-        <div class="alert alert-info" role="alert">
-            {% for message in messages %}
-            <p class="mb-0">{{ escape(message) }}</p>
-            {% end %}
-        </div>
+            <div class="alert alert-info" role="alert">
+                {% for message in messages %}
+                    <p class="mb-0">{{ escape(message) }}</p>
+                {% end %}
+            </div>
         {% end %}
         {% if len(errors) > 0 %}
-        <div class="alert alert-danger" role="alert">
-            {% for err in errors %}
-            <p class="mb-0">{{ escape(err) }}</p>
-            {% end %}
-        </div>
+            <div class="alert alert-danger" role="alert">
+                {% for err in errors %}
+                    <p class="mb-0">{{ escape(err) }}</p>
+                {% end %}
+            </div>
         {% end %}
         {% if mode == "new" %}
-        <form method="POST">
+            <form method="POST">
+                <div class="card">
+                    <h5 class="card-header d-flex justify-content-between align-items-center">
+                        ヘルスキャンデータ - 新規登録
+                    </h5>
+                    <div class="form-row">
+                        <div class="card-body">
+                            <!-- データ登録 -->
+                            <!------------------------------------------------------------------------------>
+                            <!-- ユーザID -->
+                            <div class="form-group form-inline">
+                                <label for="form-user_id" class="col-sm-2 control-label">ユーザID: </label>
+                                <input type="text" class="form-control" name="form-user_id" id="form-user_id" required value="{{ str(healthcan.attr['user_id']) if healthcan.attr['user_id'] is not None else '' }}">
+                            </div>
+                            <!-- 名前 -->
+                            <div class="form-group form-inline">
+                                <label for="form-name" class="col-sm-2 control-label">名前: </label>
+                                <input type="text" class="form-control" name="form-name" id="form-name" required value="{{ str(healthcan.attr['name']) if healthcan.attr['name'] is not None else '' }}">
+                            </div>
+                            <!-- 日付 -->
+                            <div class="form-group form-inline">
+                                <label for="form-date" class="col-sm-2 control-label">日付: </label>
+                                <input type="date" class="form-control" name="form-date" id="from-date" required value="{{ str(healthcan.attr['date']) if healthcan.attr['date'] is not None else '' }}" readonly>
+                            </div>
+                            <!-- 時間 -->
+                            <div class="form-group form-inline">
+                                <label for="form-time" class="col-sm-2 control-label">時間: </label>
+                                <input type="time" class="form-control" name="form-time" id="form-time" required value="{{ str(healthcan.attr['time']) if healthcan.attr['time'] is not None else '' }}" readonly>
+                            </div>
+                            <!-- 身長 -->
+                            <div class="form-group form-inline">
+                                <label for="form-height" class="col-sm-2 control-label">身長(cm): </label>
+                                <input type="text" class="form-control" name="form-height" id="form-height" required value="{{ str(healthcan.attr['height'])}}" onchange="resolve_calculation()">
+                            </div>
+                            <!-- 体重 -->
+                            <div class="form-group form-inline">
+                                <label for="form-weight" class="col-sm-2 control-label">体重(kg): </label>
+                                <input type="text" class="form-control" name="form-weight" id="form-weight" required value="{{ str(healthcan.attr['weight'])}}" onchange="resolve_calculation()">
+                            </div>
+                            <!-- BMI -->
+                            <div class="form-group form-inline">
+                                <label for="form-bmi" class="col-sm-2 control-label">BMI: </label>
+                                <input type="number" class="form-control" name="form-bmi" id="form-bmi" readonly="readonly" value="{{ str(healthcan.attr['bmi']) }}">
+                            </div>
+                            <!-- 適正体重 -->
+                            <div class="form-group form-inline">
+                                <label for="form-pro_weight" class="col-sm-2 control-label">適正体重: </label>
+                                <input type="number" class="form-control" name="form-pro_weight" id="form-pro_weight" readonly="readonly" value="{{ str(healthcan.attr['pro_weight'])}}">
+                            </div>
+                            <!-- 適正体重との差 -->
+                            <div class="form-group form-inline">
+                                <label for="form-diff_weight" class="col-sm-2 control-label">適正体重との差: </label>
+                                <input type="number" class="form-control" name="form-diff_weight" id="form-diff_weight" readonly="readonly" value="{{ str(healthcan.attr['diff_weight'])}}">
+                            </div>
+                            <!------------------------------------------------------------------------------>
+                        </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <div>
+                            <a href="/healthcans" class="btn btn-light" tabindex="-1">一覧へ戻る</a>
+                            <button type="submit" class="btn btn-primary">新規登録</button>
+                        </div>
+                    </div>
+            </form>  
+        {% else %}
             <div class="card">
                 <h5 class="card-header d-flex justify-content-between align-items-center">
-                    ヘルスキャンデータ - 新規登録
+                    ヘルスキャンデータ - 詳細
                 </h5>
-                <div class="form-row">
-                    <div class="card-body">
-                        <!-- データ登録 -->
-                        <!------------------------------------------------------------------------------>
-                        <!-- ユーザID -->
-                        <div class="form-group form-inline">
-                            <label for="form-user_id" class="col-sm-2 control-label">ユーザID: </label>
-                            <input type="text" class="form-control" name="form-user_id" id="form-user_id" required value="{{ str(healthcan.attr['user_id']) if healthcan.attr['user_id'] is not None else '' }}">
-                        </div>
-                        <!-- 名前 -->
-                        <div class="form-group form-inline">
-                            <label for="form-name" class="col-sm-2 control-label">名前: </label>
-                            <input type="text" class="form-control" name="form-name" id="form-name" required value="{{ str(healthcan.attr['name']) if healthcan.attr['name'] is not None else '' }}">
-                        </div>
-                        <!-- 日付 -->
-                        <div class="form-group form-inline">
-                            <label for="form-date" class="col-sm-2 control-label">日付: </label>
-                            <input type="date" class="form-control" name="form-date" id="from-date" required value="{{ str(healthcan.attr['date']) if healthcan.attr['date'] is not None else '' }}" readonly>
-                        </div>
-                        <!-- 時間 -->
-                        <div class="form-group form-inline">
-                            <label for="form-time" class="col-sm-2 control-label">時間: </label>
-                            <input type="time" class="form-control" name="form-time" id="form-time" required value="{{ str(healthcan.attr['time']) if healthcan.attr['time'] is not None else '' }}" readonly>
-                        </div>
-                        <!-- 身長 -->
-                        <div class="form-group form-inline">
-                            <label for="form-height" class="col-sm-2 control-label">身長(cm): </label>
-                            <input type="text" class="form-control" name="form-height" id="form-height" required value="{{ str(healthcan.attr['height'])}}" onchange="resolve_calculation()">
-                        </div>
-                        <!-- 体重 -->
-                        <div class="form-group form-inline">
-                            <label for="form-weight" class="col-sm-2 control-label">体重(kg): </label>
-                            <input type="text" class="form-control" name="form-weight" id="form-weight" required value="{{ str(healthcan.attr['weight'])}}" onchange="resolve_calculation()">
-                        </div>
-                        <!-- BMI -->
-                        <div class="form-group form-inline">
-                            <label for="form-bmi" class="col-sm-2 control-label">BMI: </label>
-                            <input type="number" class="form-control" name="form-bmi" id="form-bmi" readonly="readonly" value="{{ str(healthcan.attr['bmi']) }}">
-                        </div>
-                        <!-- 適正体重 -->
-                        <div class="form-group form-inline">
-                            <label for="form-pro_weight" class="col-sm-2 control-label">適正体重: </label>
-                            <input type="number" class="form-control" name="form-pro_weight" id="form-pro_weight" readonly="readonly" value="{{ str(healthcan.attr['pro_weight'])}}">
-                        </div>
-                        <!-- 適正体重との差 -->
-                        <div class="form-group form-inline">
-                            <label for="form-diff_weight" class="col-sm-2 control-label">適正体重との差: </label>
-                            <input type="number" class="form-control" name="form-diff_weight" id="form-diff_weight" readonly="readonly" value="{{ str(healthcan.attr['diff_weight'])}}">
-                        </div>
-                        <!------------------------------------------------------------------------------>
+                <div class="card-body">
+                    <!-- データ詳細 -->
+                    <!------------------------------------------------------------------------------> 
+                    <!-- ユーザID -->
+                    <div class="form-group form-inline">
+                        <label for="form-user_id" class="col-sm-2 control-label">ユーザID: </label>
+                        <input type="text" class="form-control" name="form-user_id" id="form-user_id" value="{{ str(healthcan.attr['user_id']) if healthcan.attr['user_id'] is not None else '' }}" readonly>
                     </div>
-                <div class="card-footer d-flex justify-content-between">
+                    <!-- 名前 -->
+                    <div class="form-group form-inline">
+                        <label for="form-name" class="col-sm-2 control-label">名前: </label>
+                        <input type="text" class="form-control" name="form-name" id="form-name" value="{{ str(healthcan.attr['name']) if healthcan.attr['name'] is not None else '' }}" readonly>
+                    </div>
+                    <!-- 日付 -->
+                    <div class="form-group form-inline">
+                        <label for="form-date" class="col-sm-2 control-label">日付: </label>
+                        <input type="date" class="form-control" name="form-date" id="from-date" value="{{ str(healthcan.attr['date']) if healthcan.attr['date'] is not None else '' }}" readonly>
+                    </div>
+                    <!-- 時間 -->
+                    <div class="form-group form-inline">
+                        <label for="form-time" class="col-sm-2 control-label">時間: </label>
+                        <input type="text" class="form-control" name="form-time" id="form-time" value="{{ str(healthcan.attr['time']) if healthcan.attr['time'] is not None else '' }}" readonly>
+                    </div>
+                    <!-- 身長 -->
+                    <div class="form-group form-inline">
+                        <label for="form-height" class="col-sm-2 control-label">身長(cm): </label>
+                        <input type="text" class="form-control" name="form-height" id="form-height" value="{{ str(healthcan.attr['height'])}}" onchange="resolve_calculation()" readonly>
+                    </div>
+                    <!-- 体重 -->
+                    <div class="form-group form-inline">
+                        <label for="form-weight" class="col-sm-2 control-label">体重(kg): </label>
+                        <input type="text" class="form-control" name="form-weight" id="form-weight" value="{{ str(healthcan.attr['weight'])}}" onchange="resolve_calculation()" readonly>
+                    </div>
+                    <!-- BMI -->
+                    <div class="form-group form-inline">
+                        <label for="form-bmi" class="col-sm-2 control-label">BMI: </label>
+                        <input type="number" class="form-control" name="form-bmi" id="form-bmi" value="{{ str(healthcan.attr['bmi']) }}" readonly>
+                    </div>
+                    <!-- 適正体重 -->
+                    <div class="form-group form-inline">
+                        <label for="form-pro_weight" class="col-sm-2 control-label">適正体重: </label>
+                        <input type="number" class="form-control" name="form-pro_weight" id="form-pro_weight" value="{{ str(healthcan.attr['pro_weight'])}}" readonly>
+                    </div>
+                    <!-- 適正体重との差 -->
+                    <div class="form-group form-inline">
+                        <label for="form-diff_weight" class="col-sm-2 control-label">適正体重との差: </label>
+                        <input type="number" class="form-control" name="form-diff_weight" id="form-diff_weight" value="{{ str(healthcan.attr['diff_weight'])}}" readonly>
+                    </div>
+                    <!------------------------------------------------------------------------------> 
+                </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
                     <div>
                         <a href="/healthcans" class="btn btn-light" tabindex="-1">一覧へ戻る</a>
-                        <button type="submit" class="btn btn-primary">新規登録</button>
+                        <a href="http://localhost:3000" class="btn btn-primary" tabindex="-1">推移を確認</a>
                     </div>
                 </div>
-        </form>  
-        {% else %}
-        <div class="card">
-            <h5 class="card-header d-flex justify-content-between align-items-center">
-                ヘルスキャンデータ - 詳細
-            </h5>
-            <div class="card-body">
-                <!-- データ詳細 -->
-                <!------------------------------------------------------------------------------> 
-                <!-- ユーザID -->
-                <div class="form-group form-inline">
-                    <label for="form-user_id" class="col-sm-2 control-label">ユーザID: </label>
-                    <input type="text" class="form-control" name="form-user_id" id="form-user_id" required value="{{ str(healthcan.attr['user_id']) if healthcan.attr['user_id'] is not None else '' }}" readonly>
-                </div>
-                <!-- 名前 -->
-                <div class="form-group form-inline">
-                    <label for="form-name" class="col-sm-2 control-label">名前: </label>
-                    <input type="text" class="form-control" name="form-name" id="form-name" required value="{{ str(healthcan.attr['name']) if healthcan.attr['name'] is not None else '' }}" readonly>
-                </div>
-                <!-- 日付 -->
-                <div class="form-group form-inline">
-                    <label for="form-date" class="col-sm-2 control-label">日付: </label>
-                    <input type="date" class="form-control" name="form-date" id="from-date" required value="{{ str(healthcan.attr['date']) if healthcan.attr['date'] is not None else '' }}" readonly>
-                </div>
-                <!-- 時間 -->
-                <div class="form-group form-inline">
-                    <label for="form-time" class="col-sm-2 control-label">時間: </label>
-                    <input type="time" class="form-control" name="form-time" id="form-time" required value="{{ str(healthcan.attr['time']) if healthcan.attr['time'] is not None else '' }}" readonly>
-                </div>
-                <!-- 身長 -->
-                <div class="form-group form-inline">
-                    <label for="form-height" class="col-sm-2 control-label">身長(cm): </label>
-                    <input type="text" class="form-control" name="form-height" id="form-height" required value="{{ str(healthcan.attr['height'])}}" onchange="resolve_calculation()" readonly>
-                </div>
-                <!-- 体重 -->
-                <div class="form-group form-inline">
-                    <label for="form-weight" class="col-sm-2 control-label">体重(kg): </label>
-                    <input type="text" class="form-control" name="form-weight" id="form-weight" required value="{{ str(healthcan.attr['weight'])}}" onchange="resolve_calculation()" readonly>
-                </div>
-                <!-- BMI -->
-                <div class="form-group form-inline">
-                    <label for="form-bmi" class="col-sm-2 control-label">BMI: </label>
-                    <input type="number" class="form-control" name="form-bmi" id="form-bmi" readonly="readonly" value="{{ str(healthcan.attr['bmi']) }}">
-                </div>
-                <!-- 適正体重 -->
-                <div class="form-group form-inline">
-                    <label for="form-pro_weight" class="col-sm-2 control-label">適正体重: </label>
-                    <input type="number" class="form-control" name="form-pro_weight" id="form-pro_weight" readonly="readonly" value="{{ str(healthcan.attr['pro_weight'])}}">
-                </div>
-                <!-- 適正体重との差 -->
-                <div class="form-group form-inline">
-                    <label for="form-diff_weight" class="col-sm-2 control-label">適正体重との差: </label>
-                    <input type="number" class="form-control" name="form-diff_weight" id="form-diff_weight" readonly="readonly" value="{{ str(healthcan.attr['diff_weight'])}}">
-                </div>
-                <!------------------------------------------------------------------------------> 
             </div>
-            <div class="card-footer d-flex justify-content-between align-items-center">
-                <div>
-                    <a href="/healthcans" class="btn btn-light" tabindex="-1">一覧へ戻る</a>
-                    <a href="http://localhost:3000" class="btn btn-primary" tabindex="-1">推移を確認</a>
-                </div>
-            </div>
-        </div>
         {% end %}
     </main>
 </div>

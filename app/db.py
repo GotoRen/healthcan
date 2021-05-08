@@ -1,31 +1,23 @@
-####################################
-### Created by k18039-後藤 廉
-####################################
-### 内容：DB接続
-### ファイル：db.py
-####################################
-
-# MySQL
 import MySQLdb
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
-
-
+# Providing information related to database connections.
 class DBConnector(object):
-    
-
-    # データベース接続に関連する情報を提供するクラス
     def __init__(self, dbName=None):
+        load_dotenv(verbose=True)
+        dotenv_path = join(dirname(__file__), '.env')
+        load_dotenv(dotenv_path)
         self.account = {
-            'host': 'mysql',
-            'user': 'root',
-            'passwd': 'abc123',
-            'charset': 'utf8'
+            'host': os.environ.get("DB_HOST"),
+            'user': os.environ.get("DB_USER"),
+            'passwd': os.environ.get("DB_PASS"),
+            'charset': os.environ.get("DB_CHAR")
         }
         self.db = dbName
 
-
     def __enter__(self):
-
         if self.db == None:
             self.connect = MySQLdb.connect(
                 host=self.account["host"],
@@ -41,9 +33,8 @@ class DBConnector(object):
                 db=self.db,
                 charset=self.account["charset"]
             )
-
+            
         return self.connect
-
 
     def __exit__(self, exception_type, exception_value, traceback):
         if self.connect:

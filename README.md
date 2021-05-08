@@ -1,130 +1,79 @@
-# Healthcan
-## Name
-- ~ Healthcan ~
-  - Health：健康
-  - Scan：調べる
-  - Can：管理
+# : HealthCan （Health+Scan & Health+Can）
+## 💡 Overview
+&emsp;&emsp;Our Team created a health management application using Python (Tornado) + Docker.<br>
+&emsp;&emsp;When you enter your height and weight, BMI and proper weight are calculated and displayed as a graph.<br>
+&emsp;&emsp;If you use this application, you can see the change of weight etc. at a glance!!<br>
+- __BasicFunction__
+  - account management
+  - add data
+  - data management
+  - graph visualization
 
-## Overview
-- Python（Tornado） + Docker を利用して健康管理アプリケーションを制作
-- 身長, 体重を入力するとBMIや適正体重などを算出してグラフ表示する
-  - 体重の変化などが一眼でわかる
-- 基本機能
-  - アカウント管理
-  - データ追加
-  - データ管理
-  - グラフ可視化
+## ⚡ Configure
 
-## Description
-- 環境構築
-  ```
-  ### コンテナ用のネットワークを作成
-  $ docker network create healthcan_link
+| Language/Framework	| Version |
+| :---: | :---: |
+| Docker | 20.10.5 |
+| docker-compose | 1.29.0 |
+| MySQL	| 8.0.24 |
+| Python | 3.9.0 |
+| pip3 | 21.1.1 |
 
-  ### ビルド & 実行
-  $ docker-compose up -d --build
+## 🙏 Init Require
+```
+### app
+$ cp app/.env{.sample,}
 
-  ### JupyterNotebook コンテナに入る
-  $ docker-compose exec jupyternotebook bash
-  OR
-  $ docker exec -it healthcan_jupyternotebook_1 /bin/bash
-  ```
-- 実行
-  ```
-  a. ビルド時のみ
-  ### データベースへの接続 && カーソルの生成
-  # python hc_server.py migrate
+### db
+$ cp db/.env{.sample,}
+$ cp db/.access.cnf{.sample,}
+```
 
-  b. 2回目以降
-  ### docker-compose を起動させるだけ
-  $ docker-compose start
-  ```
-- アクセス
-  - Healthcan
-    - http://localhost:3000/
-  - JupyterNotebook  
-    - http://localhost:8888/
+## 🚀 Usage
+```
+### 起動
+$ make
 
-## CodeTest
-- `# python -m unittest [フォルダ].[ファイル].[クラス].[テスト関数]`
-  - 例：）`# python -m unittest tests.test_hero.test_hero.test_is_valid`
+### appコンテナに入る
+$ make app/healthcan
 
-## Other：Docker Command
-- docker
-  ```
-  ### ステータス確認
-  $ docker ps
-  
-  ### コンテナリスト
-  $ docker ps -a
-  
-  ### 起動
-  $ docker start [コンテナ名]
-  
-  ### 停止
-  $ docker stop [コンテナ名]
-  
-  ### 再起動
-  $ docker restart [コンテナ名]
-  
-  ### コンテナ削除
-  $ docker rm [コンテナ名]
-  
-  ### イメージリスト
-  $ docker images
-  
-  ### イメージ削除
-  $ docker rmi [イメージID]
-  
-  ### コンテナログ
-  $ docker logs [コンテナ名]
+### dbコンテナに入る
+$ make app/db
 
-  ### イメージヒストリ
-  $ docker history [イメージ名]
-  ```
- - docker-compose
-   ```
-   ### 起動
-   $ docker-compose start
-   
-   ### 停止
-   $ docker-compose stop
-   
-   ### 再起動
-   $ docker-compose restart
-   
-   ### コンテナ & イメージ をまとめて削除
-   $ docker-compose down
-   
-   ### キャッシュを使用しずにビルド（更新したDockerfile, yamlなどを反映させる）
-   $ docker-compose build --no-cache
+### dbコンテナに入る + MySQL接続
+$ make mysql
 
-   ### ビルド & 実行
-   $ docker-compose up -d --build
+### 単体テスト
+$ make app/healthcan
+# make
+```
 
-   ### コンテナに入る
-   $ docker exec -it [コンテナ名] /bin/bash
-   
-   ### 詳細表示
-   $ docker-compose config
-    
-   ### ステータス確認
-   $ docker-compose ps 
+## 🌱 Access
+- Index：[http://localhost:3000/](http://localhost:3000/)
+- JupyterNotebook：[http://localhost:8888/](http://localhost:8888/)
 
-   ### インスタンスログ
-   $ docker-compose logs
-   ```
-- docker network
-  ```
-  ### ネットワークの作成
-  $ docker network create [ネットワーク名]
-  
-  ### ネットワークの詳細表示
-  $ docker network inspect [ネットワークID]    
-  
-  ### ネットワークの一覧表示
-  $ docker network ls
-  
-  ### 既存ネットワークの削除
-  $ docker network rm [ネットワークID]
-  ```
+## 📝 UnitTests
+```
+# python3 -m unittest [フォルダ].[ファイル].[クラス].[テスト関数]
+
+ex:) model/project.py
+All. python3 -m unittest tests.test_project.test_project
+
+ex:) model/healthcan.py
+All. python3 -m unittest tests.test_healthcan.test_healthcan
+1.   python3 -m unittest tests.test_healthcan.test_healthcan.test_db_is_working
+2.   python3 -m unittest tests.test_healthcan.test_healthcan.test_is_valid
+3.   python3 -m unittest tests.test_healthcan.test_healthcan.test_is_valid_with_invalid_attrs
+4.   python3 -m unittest tests.test_healthcan.test_healthcan.test_build
+5.   python3 -m unittest tests.test_healthcan.test_healthcan.test__index
+
+ex:) model/user.py
+All. python3 -m unittest tests.test_user.test_user
+1.   python3 -m unittest tests.test_user.test_user.test_db_is_working
+2.   python3 -m unittest tests.test_user.test_user.test_find_by_email
+3.   python3 -m unittest tests.test_user.test_user.test_is_valid
+4.   python3 -m unittest tests.test_user.test_user.test_is_valid_with_invarid_attrs
+5.   python3 -m unittest tests.test_user.test_user.test_build
+6.   python3 -m unittest tests.test_user.test_user.test_db_save_insert
+7.   python3 -m unittest tests.test_user.test_user.test_db_save_update
+```
