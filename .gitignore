@@ -12,6 +12,7 @@ __pycache__
 
 # Env File
 .env
+access.cnf
 
 # Volumes
 db/data
