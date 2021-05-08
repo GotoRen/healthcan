@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+
+  jupyternotebook:
+    build:
+      context: jupyternotebook
+      dockerfile: ./Dockerfile
+    ports:
+      - 0.0.0.0:8888:8888
+      - 127.0.0.1:3000:3000
+    links:
+      - mysql:mysql
+    volumes:
+      - $PWD/app:/root/app
+    working_dir: /root/app
+    restart: unless-stopped
+    networks:
+      - oop2_link
+
+  mysql:
+    build:
+      context: mysql
+      dockerfile: ./Dockerfile
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: abc123
+    restart: unless-stopped
+    networks:
+      - oop2_link
+
+networks:
+  oop2_link:
+    external: true
