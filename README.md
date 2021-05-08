@@ -46,6 +46,24 @@ $ make mysql
 ### 単体テスト
 $ make app/healthcan
 # make
+
+### 確認
+=== * 起動するDockerコンテナ * ===
+$ docker ps
+CONTAINER ID   IMAGE           COMMAND                  CREATED         STATUS         PORTS                                            NAMES
+045d0ac7cd3c   healthcan_db    "docker-entrypoint.s…"   4 minutes ago   Up 6 seconds   33060/tcp, 0.0.0.0:3307->3306/tcp                healthcan_db
+c18d7e2adee9   healthcan/app   "python3 hc_server.py"   4 minutes ago   Up 4 seconds   0.0.0.0:3000->3000/tcp, 0.0.0.0:8888->8888/tcp   healthcan_app
+
+=== * 作成されるDockerイメージ * ===
+$ docker images
+REPOSITORY                           TAG        IMAGE ID       CREATED         SIZE
+healthcan/app                        latest     7503c93d5458   5 minutes ago   1.01GB
+healthcan_db                         latest     b8c3ff9f8811   2 weeks ago     556MB
+
+=== * 作成されるDockerネットワーク * ===
+$ docker network ls
+NETWORK ID     NAME             DRIVER    SCOPE
+6f5afec43230   healthcan_link   bridge    local
 ```
 
 ## 🌱 Access
