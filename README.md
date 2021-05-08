@@ -26,7 +26,7 @@ $ cp app/.env{.sample,}
 
 ### db
 $ cp db/.env{.sample,}
-$ cp db/.access.cnf{.sample,}
+$ cp db/access.cnf{.sample,}
 ```
 
 ## 🚀 Usage
