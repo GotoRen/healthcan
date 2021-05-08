@@ -11,7 +11,7 @@ from model.healthcan import healthcan
 from controller.AuthenticationHandlers import SigninBaseHandler
 from db import DBConnector
 
-# List of data.
+# HealthcansHandler is index page display.
 class HealthcansHandler(SigninBaseHandler):
     def get(self):
         if not self.current_user:
@@ -44,8 +44,7 @@ class HealthcansHandler(SigninBaseHandler):
             name=_name,
             errors=[])
 
-
-# Detailed display of data.
+# HealthcanShowHandler is detailed display of data.
 class HealthcanShowHandler(SigninBaseHandler):
     def get(self, id):
         if not self.current_user:
@@ -63,8 +62,7 @@ class HealthcanShowHandler(SigninBaseHandler):
 
         self.render("healthcan_form.html", user=_signedInUser, mode="show", healthcan=hc, messages=[], errors=[])
 
-
-# New registration of data.
+# HealthcanCreateHandler is registration healthcan data.
 class HealthcanCreateHandler(SigninBaseHandler):
     def get(self):
         if not self.current_user:
@@ -96,7 +94,6 @@ class HealthcanCreateHandler(SigninBaseHandler):
         p_diff_weight = self.get_argument("form-diff_weight", None)
         
         hc = healthcan.build()
-
         errors = []
         
         # UserID
@@ -136,7 +133,8 @@ class HealthcanCreateHandler(SigninBaseHandler):
         hc_id = hc.save()
         if hc_id == False:
             self.render("healthcan_form.html", user=_signedInUser, mode="new", healthcan=hc, messages=[], errors=["登録時に致命的なエラーが発生しました。"])
-            print('debug-登録失敗')
+            print('[DEBUG] 登録失敗')
         else:
             self.redirect("/healthcans?message=%s" % tornado.escape.url_escape("新規登録完了しました。(ID:%s)" % hc_id))
-            print('debug-登録完了')
+            print("新規登録完了しました。(ID: %s)", hc_id)
+            print('[DEBUG] 登録完了') 

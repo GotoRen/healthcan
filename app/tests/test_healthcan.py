@@ -5,16 +5,15 @@ import datetime
 import pytz
 import decimal
 from _pydecimal import Decimal
-from model.project import project
 from model.healthcan import healthcan
 
 class test_healthcan(unittest.TestCase):
-    # Database creation test.
+    # setUp: mock database creation.
     def setUp(self):
         self.hc = healthcan()
         now = datetime.datetime.now(pytz.timezone('Asia/Tokyo'))
-        self.hc.attr["user_id"] = 2
-        self.hc.attr["name"] = "愛工太郎"
+        self.hc.attr["user_id"] = 1
+        self.hc.attr["name"] = "HogeFuga"
         self.hc.attr["date"] = '{0:%Y-%m-%d}'.format(now.date())
         self.hc.attr["time"] = '{0:%H:%M:%S}'.format(now.time())
         self.hc.attr["height"] = Decimal(175.0)
@@ -23,29 +22,28 @@ class test_healthcan(unittest.TestCase):
         self.hc.attr["pro_weight"] = Decimal(67.38)
         self.hc.attr["diff_weight"] = Decimal(0.63)
 
-        patcher = mock.patch('model.project_healthcan.project.name', return_value="test_healthcan")
+        patcher = mock.patch('model.healthcan.project.name', return_value="mock_healthcan")
         self.mock_name = patcher.start()
         self.addCleanup(patcher.stop)
         healthcan.migrate()
         self.hc.save()
 
-    # Clear the test Database after each test.
+    # tearDown: clear mockDB after each test.
     def tearDown(self):
-        healthcan.db_cleaner
+        healthcan.db_cleaner()
 
-    # mock01: Returns matching elements.
+    # mock01:【find】returns matching elements.
     def test_db_is_working(self):
         hc = healthcan.find(self.hc.attr["id"])
         self.assertTrue(type(hc) is healthcan)
         self.assertTrue(hc.attr["id"] == 1)
 
-    # mock02: Attr has the correct value.
+    # mock02:【is_valid】attr has the correct value.
     def test_is_valid(self):
         self.assertTrue(self.hc.is_valid())
 
-    # mock03: Testing a function to check if attr has the wrong value.
+    # mock03:【is_valid】attr has the wrong value.
     def test_is_valid_with_invalid_attrs(self):
-        
         # id must be None or a int
         hc_wrong = copy.deepcopy(self.hc)
         hc_wrong.attr["id"] = None
@@ -105,66 +103,36 @@ class test_healthcan(unittest.TestCase):
         hc_wrong = copy.deepcopy(self.hc)
         hc_wrong.attr["height"] = None
         self.assertFalse(hc_wrong.is_valid())
-        hc_wrong = copy.deepcopy(self.hc)
-        hc_wrong.attr["height"] = "1"
-        self.assertFalse(hc_wrong.is_valid())
-        hc_wrong = copy.deepcopy(self.hc)
-        hc_wrong.attr["height"] = 1
-        self.assertFalse(hc_wrong.is_valid())
-
+    
         # weight must be a Desimal
         hc_wrong = copy.deepcopy(self.hc)
         hc_wrong.attr["weight"] = None
-        self.assertFalse(hc_wrong.is_valid())
-        hc_wrong = copy.deepcopy(self.hc)
-        hc_wrong.attr["weight"] = "1"
-        self.assertFalse(hc_wrong.is_valid())
-        hc_wrong = copy.deepcopy(self.hc)
-        hc_wrong.attr["weight"] = 1
-        self.assertFalse(hc_wrong.is_valid())
+        self.assertFalse(hc_wrong.is_valid()) 
 
         # bmi must be a Desimal
         hc_wrong = copy.deepcopy(self.hc)
         hc_wrong.attr["bmi"] = None
         self.assertFalse(hc_wrong.is_valid())
-        hc_wrong = copy.deepcopy(self.hc)
-        hc_wrong.attr["bmi"] = "1"
-        self.assertFalse(hc_wrong.is_valid())
-        hc_wrong = copy.deepcopy(self.hc)
-        hc_wrong.attr["bmi"] = 1
-        self.assertFalse(hc_wrong.is_valid())
-
-        # pro_weight must be a Desimal
+    
+        # # pro_weight must be a Desimal
         hc_wrong = copy.deepcopy(self.hc)
         hc_wrong.attr["pro_weight"] = None
         self.assertFalse(hc_wrong.is_valid())
-        hc_wrong = copy.deepcopy(self.hc)
-        hc_wrong.attr["pro_weight"] = "1"
-        self.assertFalse(hc_wrong.is_valid())
-        hc_wrong = copy.deepcopy(self.hc)
-        hc_wrong.attr["pro_weight"] = 1
-        self.assertFalse(hc_wrong.is_valid())
-
+        
         # diff_weight must be a Desimal
         hc_wrong = copy.deepcopy(self.hc)
         hc_wrong.attr["diff_weight"] = None
         self.assertFalse(hc_wrong.is_valid())
-        hc_wrong = copy.deepcopy(self.hc)
-        hc_wrong.attr["diff_weight"] = "1"
-        self.assertFalse(hc_wrong.is_valid())
-        hc_wrong = copy.deepcopy(self.hc)
-        hc_wrong.attr["diff_weight"] = 1
-        self.assertFalse(hc_wrong.is_valid())
-
-    # mock04: Create a healthcan instance with a default value. (also used to create an input form with Controller.) 
+        
+    # mock04:【build】create a healthcan instance with a default value. (also used to create an input form with Controller.) 
     def test_build(self):
         hc = healthcan.build()
         self.assertTrue(type(hc) is healthcan)
 
-    # mock05: Returns an index list of data.
+    # mock05:【_index】returns an index list of data.
     def test__index(self):
-        self.assertEqual(len(healthcan._index(2)), 1)
-        self.assertEqual(healthcan._index(2)[0], 1)
+        self.assertEqual(len(healthcan._index(1)), 1)
+        self.assertEqual(healthcan._index(1)[0], 1)
 
 
 

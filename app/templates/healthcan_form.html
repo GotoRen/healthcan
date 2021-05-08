@@ -96,47 +96,47 @@
                     <!-- ユーザID -->
                     <div class="form-group form-inline">
                         <label for="form-user_id" class="col-sm-2 control-label">ユーザID: </label>
-                        <input type="text" class="form-control" name="form-user_id" id="form-user_id" required value="{{ str(healthcan.attr['user_id']) if healthcan.attr['user_id'] is not None else '' }}" readonly>
+                        <input type="text" class="form-control" name="form-user_id" id="form-user_id" value="{{ str(healthcan.attr['user_id']) if healthcan.attr['user_id'] is not None else '' }}" readonly>
                     </div>
                     <!-- 名前 -->
                     <div class="form-group form-inline">
                         <label for="form-name" class="col-sm-2 control-label">名前: </label>
-                        <input type="text" class="form-control" name="form-name" id="form-name" required value="{{ str(healthcan.attr['name']) if healthcan.attr['name'] is not None else '' }}" readonly>
+                        <input type="text" class="form-control" name="form-name" id="form-name" value="{{ str(healthcan.attr['name']) if healthcan.attr['name'] is not None else '' }}" readonly>
                     </div>
                     <!-- 日付 -->
                     <div class="form-group form-inline">
                         <label for="form-date" class="col-sm-2 control-label">日付: </label>
-                        <input type="date" class="form-control" name="form-date" id="from-date" required value="{{ str(healthcan.attr['date']) if healthcan.attr['date'] is not None else '' }}" readonly>
+                        <input type="date" class="form-control" name="form-date" id="from-date" value="{{ str(healthcan.attr['date']) if healthcan.attr['date'] is not None else '' }}" readonly>
                     </div>
                     <!-- 時間 -->
                     <div class="form-group form-inline">
                         <label for="form-time" class="col-sm-2 control-label">時間: </label>
-                        <input type="time" class="form-control" name="form-time" id="form-time" required value="{{ str(healthcan.attr['time']) if healthcan.attr['time'] is not None else '' }}" readonly>
+                        <input type="text" class="form-control" name="form-time" id="form-time" value="{{ str(healthcan.attr['time']) if healthcan.attr['time'] is not None else '' }}" readonly>
                     </div>
                     <!-- 身長 -->
                     <div class="form-group form-inline">
                         <label for="form-height" class="col-sm-2 control-label">身長(cm): </label>
-                        <input type="text" class="form-control" name="form-height" id="form-height" required value="{{ str(healthcan.attr['height'])}}" onchange="resolve_calculation()" readonly>
+                        <input type="text" class="form-control" name="form-height" id="form-height" value="{{ str(healthcan.attr['height'])}}" onchange="resolve_calculation()" readonly>
                     </div>
                     <!-- 体重 -->
                     <div class="form-group form-inline">
                         <label for="form-weight" class="col-sm-2 control-label">体重(kg): </label>
-                        <input type="text" class="form-control" name="form-weight" id="form-weight" required value="{{ str(healthcan.attr['weight'])}}" onchange="resolve_calculation()" readonly>
+                        <input type="text" class="form-control" name="form-weight" id="form-weight" value="{{ str(healthcan.attr['weight'])}}" onchange="resolve_calculation()" readonly>
                     </div>
                     <!-- BMI -->
                     <div class="form-group form-inline">
                         <label for="form-bmi" class="col-sm-2 control-label">BMI: </label>
-                        <input type="number" class="form-control" name="form-bmi" id="form-bmi" readonly="readonly" value="{{ str(healthcan.attr['bmi']) }}">
+                        <input type="number" class="form-control" name="form-bmi" id="form-bmi" value="{{ str(healthcan.attr['bmi']) }}" readonly>
                     </div>
                     <!-- 適正体重 -->
                     <div class="form-group form-inline">
                         <label for="form-pro_weight" class="col-sm-2 control-label">適正体重: </label>
-                        <input type="number" class="form-control" name="form-pro_weight" id="form-pro_weight" readonly="readonly" value="{{ str(healthcan.attr['pro_weight'])}}">
+                        <input type="number" class="form-control" name="form-pro_weight" id="form-pro_weight" value="{{ str(healthcan.attr['pro_weight'])}}" readonly>
                     </div>
                     <!-- 適正体重との差 -->
                     <div class="form-group form-inline">
                         <label for="form-diff_weight" class="col-sm-2 control-label">適正体重との差: </label>
-                        <input type="number" class="form-control" name="form-diff_weight" id="form-diff_weight" readonly="readonly" value="{{ str(healthcan.attr['diff_weight'])}}">
+                        <input type="number" class="form-control" name="form-diff_weight" id="form-diff_weight" value="{{ str(healthcan.attr['diff_weight'])}}" readonly>
                     </div>
                     <!------------------------------------------------------------------------------> 
                 </div>

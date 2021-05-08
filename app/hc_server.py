@@ -42,18 +42,5 @@ application = tornado.web.Application([
 
 
 if __name__ == "__main__":
-    args = sys.argv
-    if len(args)>1:
-        if args[1] == "migrate":
-            healthcan.migrate()
-            user.migrate()
-        if args[1] == "db_cleaner":
-            healthcan.db_cleaner()
-            user.db_cleaner()
-        if args[1] == "help":
-            print("usage: python hc_server.py migrate # prepare DB")
-            print("usage: python hc_server.py db_cleaner # remove DB")
-            print("usage: python hc_server.py # run web server")
-    else:
-        application.listen(3000, "0.0.0.0")
-        tornado.ioloop.IOLoop.instance().start()
+    application.listen(3000, "0.0.0.0")
+    tornado.ioloop.IOLoop.instance().start()

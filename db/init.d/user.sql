@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `healthcan_db`;
+CREATE DATABASE IF NOT EXISTS `db_healthcan`;
 
-CREATE TABLE IF NOT EXISTS `healthcan_db`.`user` (
+CREATE TABLE IF NOT EXISTS `db_healthcan`.`user` (
   `id`           int(11) unsigned NOT NULL AUTO_INCREMENT,
   `email`        varchar(256)     NOT NULL DEFAULT '',
   `name`         varchar(256)     DEFAULT NULL,

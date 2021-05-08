@@ -16,6 +16,7 @@
 | docker-compose | 1.29.0 |
 | MySQL	| 8.0.24 |
 | Python | 3.9.0 |
+| pip | 21.0.1 |
 
 ## 🚀 Usage
 ```
@@ -30,7 +31,7 @@ $ docker-compose exec jupyternotebook bash
 
 a. ビルド時のみ
 ### データベースへの接続 && カーソルの生成
-# python hc_server.py migrate
+# python3 hc_server.py migrate
 
 b. 2回目以降
 ### docker-compose を起動させるだけ
@@ -43,7 +44,44 @@ $ docker-compose start
 
 ## 📝 UnitTests
 ```
-# python -m unittest [フォルダ].[ファイル].[クラス].[テスト関数]
+$ make app/healthcan
+# make 
 
-ex：）`# python -m unittest tests.test_hero.test_hero.test_is_valid`
+# python3 -m unittest [フォルダ].[ファイル].[クラス].[テスト関数]
+
+ex:) model/project.py
+All. python3 -m unittest tests.test_project.test_project
+
+ex:) model/healthcan.py
+All. python3 -m unittest tests.test_healthcan.test_healthcan
+1.   python3 -m unittest tests.test_healthcan.test_healthcan.test_db_is_working
+2.   python3 -m unittest tests.test_healthcan.test_healthcan.test_is_valid
+3.   python3 -m unittest tests.test_healthcan.test_healthcan.test_is_valid_with_invalid_attrs
+4.   python3 -m unittest tests.test_healthcan.test_healthcan.test_build
+5.   python3 -m unittest tests.test_healthcan.test_healthcan.test__index
+
+ex:) model/user.py
+All. python3 -m unittest tests.test_user.test_user
+1.   python3 -m unittest tests.test_user.test_user.test_db_is_working
+2.   python3 -m unittest tests.test_user.test_user.test_find_by_email
+3.   python3 -m unittest tests.test_user.test_user.test_is_valid
+4.   python3 -m unittest tests.test_user.test_user.test_is_valid_with_invarid_attrs
+5.   python3 -m unittest tests.test_user.test_user.test_build
+6.   python3 -m unittest tests.test_user.test_user.test_db_save_insert
+7.   python3 -m unittest tests.test_user.test_user.test_db_save_update
 ```
+
+## 💪 pip3
+```
+### pip3 リスト
+$ pip3 list
+
+### インストール済みのパッケージのうち、最新でないものを表示する
+$ pip3 list --outdated
+
+### インストール済みパッケージのうち、最新でないものをアップデートする
+$ pip3 list --outdated | awk 'NR>2 {print $1}' | xargs pip install -U
+```
+
+
+

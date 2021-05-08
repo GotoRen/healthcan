@@ -1,4 +1,4 @@
 class project:
     @staticmethod
     def name():
-        return "HealthCan"
+        return "healthcan"

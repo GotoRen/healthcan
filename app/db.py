@@ -1,13 +1,19 @@
 import MySQLdb
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
 # Providing information related to database connections.
 class DBConnector(object):
     def __init__(self, dbName=None):
+        load_dotenv(verbose=True)
+        dotenv_path = join(dirname(__file__), '.env')
+        load_dotenv(dotenv_path)
         self.account = {
-            'host': 'mysql',
-            'user': 'root',
-            'passwd': 'abc123',
-            'charset': 'utf8'
+            'host': os.environ.get("DB_HOST"),
+            'user': os.environ.get("DB_USER"),
+            'passwd': os.environ.get("DB_PASS"),
+            'charset': os.environ.get("DB_CHAR")
         }
         self.db = dbName
 
