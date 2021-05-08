@@ -1,22 +1,33 @@
-# HealthCan
+# : HealthCan （Health+Scan & Health+Can）
 ## 💡 Overview
-- Python（Tornado） + Docker を利用して健康管理アプリケーションを制作
-- 身長, 体重を入力するとBMIや適正体重などを算出してグラフ表示する
-  - 体重の変化などが一眼でわかる
-- 基本機能
-  - アカウント管理
-  - データ追加
-  - データ管理
-  - グラフ可視化
+&emsp;&emsp;Our Team created a health management application using Python (Tornado) + Docker.<br>
+&emsp;&emsp;When you enter your height and weight, BMI and proper weight are calculated and displayed as a graph.<br>
+&emsp;&emsp;If you use this application, you can see the change of weight etc. at a glance!!<br>
+- __BasicFunction__
+  - account management
+  - add data
+  - data management
+  - graph visualization
 
 ## ⚡ Configure
-| 言語/フレームワーク	| バージョン |
+
+| Language/Framework	| Version |
 | :---: | :---: |
 | Docker | 20.10.5 |
 | docker-compose | 1.29.0 |
 | MySQL	| 8.0.24 |
 | Python | 3.9.0 |
 | pip3 | 21.1.1 |
+
+## 🙏 Init Require
+```
+### app
+$ cp app/.env{.sample,}
+
+### db
+$ cp db/.env{.sample,}
+$ cp db/.access.cnf{.sample,}
+```
 
 ## 🚀 Usage
 ```
