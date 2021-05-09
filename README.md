@@ -1,8 +1,9 @@
 # : HealthCan （Health+Scan & Health+Can）
 ## 💡 Overview
-&emsp;&emsp;Our Team created a health management application using Python (Tornado) + Docker.<br>
-&emsp;&emsp;When you enter your height and weight, BMI and proper weight are calculated and displayed as a graph.<br>
-&emsp;&emsp;If you use this application, you can see the change of weight etc. at a glance!!<br>
+- __Description__<br>
+&emsp;Our team created a health management application using Python (Tornado) + Docker.<br>
+&emsp;When you enter your height and weight, BMI and proper weight are calculated and displayed as a graph.<br>
+&emsp;If you use this application, you can see the change of weight etc. at a glance!!<br>
 - __BasicFunction__
   - account management
   - add data
@@ -50,20 +51,20 @@ $ make app/healthcan
 ### 確認
 === * 起動するDockerコンテナ * ===
 $ docker ps
-CONTAINER ID   IMAGE           COMMAND                  CREATED         STATUS         PORTS                                            NAMES
-045d0ac7cd3c   healthcan_db    "docker-entrypoint.s…"   4 minutes ago   Up 6 seconds   33060/tcp, 0.0.0.0:3307->3306/tcp                healthcan_db
-c18d7e2adee9   healthcan/app   "python3 hc_server.py"   4 minutes ago   Up 4 seconds   0.0.0.0:3000->3000/tcp, 0.0.0.0:8888->8888/tcp   healthcan_app
+CONTAINER ID   IMAGE           COMMAND                  CREATED          STATUS          PORTS                               NAMES
+111a64977445   healthcan_db    "docker-entrypoint.s…"   44 seconds ago   Up 38 seconds   33060/tcp, 0.0.0.0:3307->3306/tcp   healthcan_db
+f13ed74a7c79   healthcan/app   "python3 hc_server.py"   44 seconds ago   Up 39 seconds   0.0.0.0:3000->3000/tcp              healthcan_app
 
 === * 作成されるDockerイメージ * ===
 $ docker images
 REPOSITORY                           TAG        IMAGE ID       CREATED         SIZE
-healthcan/app                        latest     7503c93d5458   5 minutes ago   1.01GB
+healthcan/app                        latest     421f0ec4569f   2 minutes ago   906MB
 healthcan_db                         latest     b8c3ff9f8811   2 weeks ago     556MB
 
 === * 作成されるDockerネットワーク * ===
 $ docker network ls
 NETWORK ID     NAME             DRIVER    SCOPE
-6f5afec43230   healthcan_link   bridge    local
+8267c6d5107e   healthcan_link   bridge    local
 ```
 
 ## 🌱 Access
