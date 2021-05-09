@@ -68,7 +68,6 @@ NETWORK ID     NAME             DRIVER    SCOPE
 
 ## 🌱 Access
 - Index：[http://localhost:3000/](http://localhost:3000/)
-- JupyterNotebook：[http://localhost:8888/](http://localhost:8888/)
 
 ## 📝 UnitTests
 ```
