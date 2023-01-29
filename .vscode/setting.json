@@ -1,0 +1,17 @@
+{
+  "[python]": {
+    "editor.formatOnSave": true
+  },
+  "python.linting.pylintEnabled": true,
+  "python.formatting.provider": "black",
+  "python.linting.pylintArgs": ["--generate-members"],
+  "[markdown]": {
+    "editor.defaultFormatter": "svipas.prettier-plus",
+    "editor.formatOnSave": true
+  },
+  "[django-html]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  }
+}

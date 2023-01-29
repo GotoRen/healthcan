@@ -48,8 +48,8 @@ Temporary Items
 
 ### https://raw.githubusercontent.com/github/gitignore/main/Global/VisualStudioCode.gitignore
 
-.vscode/
-.vscode/*
+!.vscode/
+!.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
