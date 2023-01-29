@@ -1,10 +1,12 @@
 # : HealthCan （Health+Scan & Health+Can）
+
 ## 💡 Overview
-- __Description__<br>
-&emsp;Our team created a health management application using Python (Tornado) + Docker.<br>
-&emsp;When you enter your height and weight, BMI and proper weight are calculated and displayed as a graph.<br>
-&emsp;If you use this application, you can see the change of weight etc. at a glance!!<br>
-- __BasicFunction__
+
+- **Description**<br>
+  &emsp;Our team created a health management application using Python (Tornado) + Docker.<br>
+  &emsp;When you enter your height and weight, BMI and proper weight are calculated and displayed as a graph.<br>
+  &emsp;If you use this application, you can see the change of weight etc. at a glance!!<br>
+- **BasicFunction**
   - account management
   - add data
   - data management
@@ -12,15 +14,16 @@
 
 ## ⚡ Configure
 
-| Language/Framework	| Version |
-| :---: | :---: |
-| Docker | 20.10.5 |
-| docker-compose | 1.29.0 |
-| MySQL	| 8.0.24 |
-| Python | 3.9.0 |
-| pip3 | 21.1.1 |
+| Language/Framework | Version |
+| :----------------: | :-----: |
+|       Docker       | 20.10.5 |
+|   docker-compose   | 1.29.0  |
+|       MySQL        | 8.0.24  |
+|       Python       |  3.9.0  |
+|        pip3        | 21.1.1  |
 
 ## 🙏 Init Require
+
 ```
 ### app
 $ cp app/.env{.sample,}
@@ -31,6 +34,7 @@ $ cp db/access.cnf{.sample,}
 ```
 
 ## 🚀 Usage
+
 ```
 ### 起動
 $ make
@@ -68,9 +72,11 @@ NETWORK ID     NAME             DRIVER    SCOPE
 ```
 
 ## 🌱 Access
+
 - Index：[http://localhost:3000/](http://localhost:3000/)
 
 ## 📝 UnitTests
+
 ```
 # python3 -m unittest [フォルダ].[ファイル].[クラス].[テスト関数]
 

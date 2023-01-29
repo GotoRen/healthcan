@@ -1,32 +1,32 @@
 body {
-    width: 80%;
-    margin: 0 auto;
-    background-color: #f9d1d8;
+  width: 80%;
+  margin: 0 auto;
+  background-color: #f9d1d8;
 }
-  
+
 p {
-    color:#BEAF71;
-    font-size:100%;
+  color: #beaf71;
+  font-size: 100%;
 }
-  
+
 h1 {
-    color: Blue;
+  color: Blue;
 }
-  
+
 h3 {
-    font-size: 15px;
-    text-align: right;
-    color: Gray;
+  font-size: 15px;
+  text-align: right;
+  color: Gray;
 }
-  
+
 #main {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    border: 1px solid Black;
-    width: 1150px;
-    height: 80%;
-    background-size: cover;             
-    background-attachment: fixed;       
-    background-color: #e0ffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid Black;
+  width: 1150px;
+  height: 80%;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: #e0ffff;
 }

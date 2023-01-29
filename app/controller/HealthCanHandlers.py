@@ -23,11 +23,11 @@ class HealthcansHandler(SigninBaseHandler):
         _message = self.get_argument("message", None)
         messages = []
 
-        if _message is not None: 
+        if _message is not None:
             messages.append(_message)
 
-        _user_id= self.get_argument("user_id", None)
-        _name= self.get_argument("name", None)
+        _user_id = self.get_argument("user_id", None)
+        _name = self.get_argument("name", None)
 
         if _user_id is not None:
             results = healthcan.user_id(_id, _user_id)
@@ -36,13 +36,16 @@ class HealthcansHandler(SigninBaseHandler):
         else:
             results = healthcan.select_by_user_id(_signedInUser.attr["id"])
 
-        self.render("healthcans.html",
+        self.render(
+            "healthcans.html",
             user=_signedInUser,
             healthcans=results,
             messages=messages,
             user_id=_user_id,
             name=_name,
-            errors=[])
+            errors=[],
+        )
+
 
 # HealthcanShowHandler is detailed display of data.
 class HealthcanShowHandler(SigninBaseHandler):
@@ -55,12 +58,20 @@ class HealthcanShowHandler(SigninBaseHandler):
         _signedInUser = user.find(int(_id))
         hc = healthcan.find(id)
 
-        if hc is None: 
+        if hc is None:
             raise tornado.web.HTTPError(404)
-        if hc.attr["user_id"] != _signedInUser.attr["id"]: 
+        if hc.attr["user_id"] != _signedInUser.attr["id"]:
             raise tornado.web.HTTPError(404)
 
-        self.render("healthcan_form.html", user=_signedInUser, mode="show", healthcan=hc, messages=[], errors=[])
+        self.render(
+            "healthcan_form.html",
+            user=_signedInUser,
+            mode="show",
+            healthcan=hc,
+            messages=[],
+            errors=[],
+        )
+
 
 # HealthcanCreateHandler is registration healthcan data.
 class HealthcanCreateHandler(SigninBaseHandler):
@@ -73,7 +84,14 @@ class HealthcanCreateHandler(SigninBaseHandler):
         _signedInUser = user.find(int(_id))
         hc = healthcan.build()
 
-        self.render("healthcan_form.html", user=_signedInUser, mode="new", healthcan=hc, messages=[], errors=[])
+        self.render(
+            "healthcan_form.html",
+            user=_signedInUser,
+            mode="new",
+            healthcan=hc,
+            messages=[],
+            errors=[],
+        )
 
     def post(self):
         if not self.current_user:
@@ -92,32 +110,32 @@ class HealthcanCreateHandler(SigninBaseHandler):
         p_bmi = self.get_argument("form-bmi", None)
         p_pro_weight = self.get_argument("form-pro_weight", None)
         p_diff_weight = self.get_argument("form-diff_weight", None)
-        
+
         hc = healthcan.build()
         errors = []
-        
+
         # UserID
         if p_user_id is None:
             errors.append("ユーザIDは必須です。")
         else:
             hc.attr["user_id"] = int(p_user_id)
         # Name
-        if p_name is None: 
+        if p_name is None:
             errors.append("名前は必須です。")
         hc.attr["name"] = p_name
         # Height
-        if p_height is None: 
+        if p_height is None:
             errors.append("身長は必須です。")
         hc.attr["height"] = Decimal(p_height)
         # Weight
-        if p_weight is None: 
+        if p_weight is None:
             errors.append("体重は必須です。")
         hc.attr["weight"] = Decimal(p_weight)
         # Date
-        input_day = datetime.datetime.strptime(p_date, '%Y-%m-%d')
+        input_day = datetime.datetime.strptime(p_date, "%Y-%m-%d")
         hc.attr["date"] = input_day.date()
         # Time
-        input_time = datetime.datetime.strptime(p_time, '%H:%M:%S')
+        input_time = datetime.datetime.strptime(p_time, "%H:%M:%S")
         hc.attr["time"] = input_time.time()
         # BMI
         hc.attr["bmi"] = Decimal(p_bmi)
@@ -125,16 +143,33 @@ class HealthcanCreateHandler(SigninBaseHandler):
         hc.attr["pro_weight"] = Decimal(p_pro_weight)
         # DifferenceWeight
         hc.attr["diff_weight"] = Decimal(p_diff_weight)
-        
+
         if len(errors) > 0:
-            self.render("healthcan_form.html", user=_signedInUser, mode="new", healthcan=hc, messages=[], errors=[])
+            self.render(
+                "healthcan_form.html",
+                user=_signedInUser,
+                mode="new",
+                healthcan=hc,
+                messages=[],
+                errors=[],
+            )
             return
-        
+
         hc_id = hc.save()
         if hc_id == False:
-            self.render("healthcan_form.html", user=_signedInUser, mode="new", healthcan=hc, messages=[], errors=["登録時に致命的なエラーが発生しました。"])
-            print('[DEBUG] 登録失敗')
+            self.render(
+                "healthcan_form.html",
+                user=_signedInUser,
+                mode="new",
+                healthcan=hc,
+                messages=[],
+                errors=["登録時に致命的なエラーが発生しました。"],
+            )
+            print("[DEBUG] 登録失敗")
         else:
-            self.redirect("/healthcans?message=%s" % tornado.escape.url_escape("新規登録完了しました。(ID:%s)" % hc_id))
+            self.redirect(
+                "/healthcans?message=%s"
+                % tornado.escape.url_escape("新規登録完了しました。(ID:%s)" % hc_id)
+            )
             print("新規登録完了しました。(ID: %s)", hc_id)
-            print('[DEBUG] 登録完了') 
+            print("[DEBUG] 登録完了")

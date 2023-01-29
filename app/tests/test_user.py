@@ -5,6 +5,7 @@ from unittest import mock
 from model.project import project
 from model.user import user
 
+
 class test_user(unittest.TestCase):
     # setUp: mock database creation.
     def setUp(self):
@@ -12,7 +13,9 @@ class test_user(unittest.TestCase):
         self.u.attr["email"] = "hoge@fuga.com"
         self.u.attr["name"] = "HogeFuga"
         self.u.attr["password"] = "hogehogefugafuga"
-        self.patcher = mock.patch('model.project.project.name', return_value="test_user")
+        self.patcher = mock.patch(
+            "model.project.project.name", return_value="test_user"
+        )
         self.mock_name = self.patcher.start()
         user.migrate()
         self.u.save()
@@ -21,7 +24,7 @@ class test_user(unittest.TestCase):
     def tearDown(self):
         user.db_cleaner()
         self.patcher.stop()
-        
+
     # mock01:【find】returns matching elements.
     def test_db_is_working(self):
         u = user.find(self.u.attr["id"])
@@ -42,30 +45,32 @@ class test_user(unittest.TestCase):
     # mock04:【is_valid】attr has the wrong value.
     def test_is_valid_with_invarid_attrs(self):
         cb_wrong = copy.deepcopy(self.u)
-        cb_wrong.attr["id"] = None # id must be None or a int
+        cb_wrong.attr["id"] = None  # id must be None or a int
         self.assertTrue(cb_wrong.is_valid())
         cb_wrong = copy.deepcopy(self.u)
-        cb_wrong.attr["id"] = "1" # id must be None or a int
+        cb_wrong.attr["id"] = "1"  # id must be None or a int
         self.assertFalse(cb_wrong.is_valid())
 
         cb_wrong = copy.deepcopy(self.u)
-        cb_wrong.attr["email"] = 12345 # email must be a sting
+        cb_wrong.attr["email"] = 12345  # email must be a sting
         self.assertFalse(cb_wrong.is_valid())
 
         cb_wrong = copy.deepcopy(self.u)
-        cb_wrong.attr["name"] = 12345 # name must be a sting
+        cb_wrong.attr["name"] = 12345  # name must be a sting
         self.assertFalse(cb_wrong.is_valid())
 
         cb_wrong = copy.deepcopy(self.u)
-        cb_wrong.attr["password"] = None # password must be a string
+        cb_wrong.attr["password"] = None  # password must be a string
         self.assertFalse(cb_wrong.is_valid())
 
         cb_wrong = copy.deepcopy(self.u)
-        cb_wrong.attr["password"] = 12345 # password must be a string
+        cb_wrong.attr["password"] = 12345  # password must be a string
         self.assertFalse(cb_wrong.is_valid())
 
         cb_wrong = copy.deepcopy(self.u)
-        cb_wrong.attr["last_updated"] = None # last_updated must be a datetime.datetime object
+        cb_wrong.attr[
+            "last_updated"
+        ] = None  # last_updated must be a datetime.datetime object
         self.assertFalse(cb_wrong.is_valid())
 
     # mock05:【build】create a user instance with a default value.
@@ -82,7 +87,7 @@ class test_user(unittest.TestCase):
         u.attr["password"] = "HogeHogeFugaFuga"
         result = u.save()
         self.assertTrue(type(result) is int)
-        #self.assertTrue(u.attr["id"] is not None)
+        # self.assertTrue(u.attr["id"] is not None)
 
     # mock07:【save】execute update when id has a value.
     def test_db_save_update(self):
@@ -94,7 +99,6 @@ class test_user(unittest.TestCase):
         result = u.save()
         self.assertTrue(type(result) is int)
         self.assertTrue(u.attr["id"] is not None)
-
 
 
 if __name__ == "__main__":

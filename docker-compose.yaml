@@ -9,11 +9,11 @@ services:
       dockerfile: ./Dockerfile
     command: python3 hc_server.py
     volumes:
-        - ./app:/app
+      - ./app:/app
     working_dir: /app
     ports:
       - 3000:3000
-    networks: 
+    networks:
       - container-link
   db:
     container_name: healthcan_db
@@ -29,7 +29,7 @@ services:
       - ./db/access.cnf:/home/access.cnf
     env_file:
       - ./db/.env
-    networks: 
+    networks:
       - container-link
 
 networks:

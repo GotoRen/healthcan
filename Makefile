@@ -39,7 +39,7 @@ app/db: ## db container bash
 mysql: ## db(MySQL) container's MySQL access
 	$(EXEC) $(DB) mysql --defaults-extra-file=/home/access.cnf
 
-logs: ## docker logs 
+logs: ## docker logs
 	$(LOGS)
 
 logs/app: ## app container logs

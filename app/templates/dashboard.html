@@ -50,7 +50,7 @@
                         var c_date= ("00" + today.getDate()).slice(-2);
                         var result_today = c_year + "/" + c_month + "/" + c_date;
                         console.log(result_today);
-     
+
                         var wdata = [];
                         {% for wei in weight %}
                             wdata.push({{ wei["weight"] }});
@@ -58,7 +58,7 @@
                         console.log(wdata);
                         var ctx = document.getElementById("weightReport");
                         //体重グラフ
-                        var chart = new Chart(ctx, { 
+                        var chart = new Chart(ctx, {
                             type: 'line',
                             data: {
                                 labels: [result_today, result_today, result_today, result_today], //日付
@@ -74,7 +74,7 @@
                                 tooltips: {
                                     mode: 'nearest',
                                     intersect: false,
-                                },                               
+                                },
                                 scales: {
                                     yAxes: [{
                                         ticks: {
@@ -88,7 +88,7 @@
                                     }]
                                 },
                             }
-                        });                  
+                        });
                     </script>
 
                     <div class="card-body col-sm-6">
@@ -130,7 +130,7 @@
                         // console.log(BMI_data);
                         var ctx2 = document.getElementById("bmiReport");
                         //BMIグラフ
-                        var chart = new Chart(ctx2, { 
+                        var chart = new Chart(ctx2, {
                             type: 'line',
                             data: {
                                 labels: [result_today, result_today, result_today, result_today], //日付
@@ -146,7 +146,7 @@
                                 tooltips: {
                                     mode: 'nearest',
                                     intersect: false,
-                                },   
+                                },
                                 scales: {
                                     yAxes: [{
                                         ticks: {
@@ -157,7 +157,7 @@
                                     }]
                                 },
                             }
-                         });              
+                         });
                     </script>
                     <!-- ここまで -->
                 </div>

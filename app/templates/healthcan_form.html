@@ -84,7 +84,7 @@
                             <button type="submit" class="btn btn-primary">新規登録</button>
                         </div>
                     </div>
-            </form>  
+            </form>
         {% else %}
             <div class="card">
                 <h5 class="card-header d-flex justify-content-between align-items-center">
@@ -92,7 +92,7 @@
                 </h5>
                 <div class="card-body">
                     <!-- データ詳細 -->
-                    <!------------------------------------------------------------------------------> 
+                    <!------------------------------------------------------------------------------>
                     <!-- ユーザID -->
                     <div class="form-group form-inline">
                         <label for="form-user_id" class="col-sm-2 control-label">ユーザID: </label>
@@ -138,7 +138,7 @@
                         <label for="form-diff_weight" class="col-sm-2 control-label">適正体重との差: </label>
                         <input type="number" class="form-control" name="form-diff_weight" id="form-diff_weight" value="{{ str(healthcan.attr['diff_weight'])}}" readonly>
                     </div>
-                    <!------------------------------------------------------------------------------> 
+                    <!------------------------------------------------------------------------------>
                 </div>
                 <div class="card-footer d-flex justify-content-between align-items-center">
                     <div>
